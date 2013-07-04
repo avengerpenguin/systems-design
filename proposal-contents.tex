@@ -1,0 +1,59 @@
+\section{Introduction}
+
+This proposal is for coursework describing the design of a search application
+that allows visitors to the BBC website to find anything the BBC offers
+online. The focus of the design is likely around the content indexing
+systems, which need to support requirements from all areas of content
+production.
+
+The scope of the coursework will be restricted to a subset of the content
+areas of the BBC website so as to focus on the differing challenges, but
+ensure the exercise is concise and free from unnecessary complexity.
+
+\section{The Problem}
+
+Historically, the BBC has grown its presence on the World Wide Web by
+allowing individual areas within the organisation to manage their own web
+pages independently. This has led to a large variation in the ways
+information is stored and how that content is formatted and is accessed.
+
+This historic, technical variation adds to the existing complexity behind
+the variation in the nature of the content as the web has matured. Traditional
+searches that are optimised for textual items such as news articles might
+not work so well for indexing online games aimed at children. Web products
+such as iPlayer offer video and audio content with very little accompanying
+text.
+
+Website visitors are likely to perceive the BBC website as a single entity
+and a unified search can meet those expectations by providing results
+across all content areas for any search. There are many
+challenges in providing a query interface that can serve varying
+mixtures of types of content appropriately for different searches.
+
+There is a dual need to index both a back catalogue of already-published
+items and new content as it is written as timely as possible. Some areas
+-- such as news -- will require very up-to-the-minute changes as they happen.
+This need becomes even stronger for news and sport events that are being
+covered live with continuous updates.
+
+Finally, there are areas of content on the BBC website that no longer have
+active teams maintaining them. When these areas are just pages lying on
+a disk on a server, there is little option other than crawling the live
+website to see what is still available.
+
+\section{Proposed System}
+
+The system to be designed is an application with interfaces for sending
+and later retrieving content items based on searches given by website users.
+
+The existence of a generic search engine capable of text analysis, indexing
+and retrieval can be assumed. Systems that perform these tasks are
+already available as free software or proprietary offerings. The bulk of
+the problem is in the provision of an application interface that can
+accept a large variety of content and interface with content production
+workflows with minimal effort required of other teams.
+
+Ultimately, the system needs to focus on the needs for the web application
+that will be built to meet users' needs. The requirements
+for this front end application are largely speculative and hypothetical
+at this stage however.
