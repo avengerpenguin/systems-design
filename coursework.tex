@@ -11,7 +11,7 @@
 
 \chapter{The Problem}
 
-\section{Introduction}
+\section{Rationale}
 
 The BBC has been publishing content on the World Wide Web since the
 mid 1990s and since then the amount and the diversity has increased
@@ -41,7 +41,38 @@ specific to BBC content. The intent is to provide a consistent user interface
 that allows the audience to find equally news articles, sport results,
 TV catch-up, education resources and everything else the BBC produces.
 
+The target audience for the BBC is effectively the entire population of the UK
+and amongst those that do make use of BBC services, there is much diversity
+of needs, preferences and technical ability. It is clear it is no small
+task to design a search-based discovery mechanism of millions of diverse
+pieces of content aimed at millions of diverse people.
+
+A suitable approach for tackling real-word problems is \emph{Soft Systems Methodology} (SSM)
+\cite{checkland2006learning}, which will allows us to stand back from
+an ontological approach of defining what the search system \emph{is} or
+\emph{comprises} and instead take an \emph{epistemological} view of search
+as a system. With this view, we could consider a system that holistically
+transforms members of the public's desires to find online content into
+the consumption of that content -- whether those desires are \emph{precise}
+(e.g. they want an exact article known by headline they saw earlier or a
+particular programme they missed on television) or those desires are
+\emph{fuzzy} (e.g. news about a certain topic, any comedy programme, learning
+materials about the Industrial Revolution).
+
+Checkland \cite{checkland1990soft} decribed a \emph{Rich Picture} approach to
+representing a problem situation early in SSM approaches.
+Given the size and complexity of the
+search system as a whole, a useful initial step is to create such an informal
+representation of what is known about the problem. Figure~\ref{rich-picture}
+shows what I know of the audience, search and most BBC online content areas.
+Note that not all areas are covered and a strong emphasis is placed on TV
+catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
+as it shares a lot of similarity with television in terms of use and any
+differences are out of scope for this design.
+
 \chapter{Design}
+
+\section{Use cases}
 
 \chapter{Analysis}
 
@@ -52,5 +83,7 @@ TV catch-up, education resources and everything else the BBC produces.
 
 \input{proposal-contents}
 
+\bibliographystyle{cell}
+\bibliography{bibtex}
 
 \end{document}
