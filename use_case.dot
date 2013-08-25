@@ -1,0 +1,82 @@
+digraph G {
+    rankdir=LR;
+    labelloc="b";
+    peripheries=0;
+
+    /* Public Actors */
+    node [shape=none, label="", color=white, shapefile="stick.png"];
+
+    subgraph clusterAdult {label="Adult Audience Member"; adult};
+    subgraph clusterViewer {label="TV Viewer"; viewer};
+    subgraph clusterBrowser {label="Web User"; browser};
+    subgraph clusterSmartphone {label="Smartphone User"; smartphone};
+
+    subgraph clusterChild {label="Child Audience Member"; child};
+
+    subgraph clusterProducer {label="TV/Radio Producer"; producer};
+    subgraph clusterJournalist {label="Journalist"; journalist};
+    subgraph clusterEditorial {label="Search Editorial Team"; editorial};
+
+    /* Use Cases */
+    node [shape=ellipse, style=solid, color=black, shapefile=""];
+
+    {
+        rank=same;
+
+        pod [label="Find programmes on-demand"];
+        pod_child [label="Find child-friendly programmes on-demand"];
+        news [label="Find news articles"];
+        newsround [label="Find Newsround articles"];
+        weather [label="Find weather forecast"];
+        games [label="Find children's games"];
+
+        update [label="Update indexes"];
+
+    }
+
+    {
+        rank=same;
+
+        bad [label="Remove bad content"];
+        prog [label="Publish programme information"];
+        write_news [label="Publish news article"];
+
+        query [label="Query indexes"];
+        spell [label="Check Spelling"];
+    }
+
+    /* Edges */
+
+    edge  [arrowhead="oarrow"];
+    viewer->adult;
+    smartphone->adult;
+    browser->adult;
+
+    edge [arrowhead="none"];
+    adult->pod;
+    child->pod_child;
+    adult->news;
+    child->newsround;
+    child->games;
+    adult->weather;
+    bad->editorial;
+    write_news->journalist;
+    prog->producer;
+
+    edge [arrowhead="vee", label="<<extend>>", style=dashed];
+    pod_child->pod;
+
+    edge [arrowhead="vee", label="<<include>>", style=dashed];
+    pod->query;
+    news->query;
+    newsround->query;
+    weather->query;
+    games->query;
+
+    spell->query;
+
+    write_news->update;
+    prog->update;
+    bad->update;
+
+}
