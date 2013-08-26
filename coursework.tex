@@ -118,9 +118,7 @@ systems thinking throughout the design process to ensure that we
 create a search application that both meets the needs of the public
 using the application to search for programmes and forms part of
 a television production and delivery system that itself meets the
-needs of the television-watching public. It is not always the case
-that the holistic system will behave predictably from the behaviours
-of its parts.
+needs of the television-watching public.
 
 Thus a suitable design strategy is to apply systems design to
 the search application in isolation -- as a \emph{hard problem} --
@@ -130,6 +128,11 @@ Having extracted the activities that appear to pertain to the
 search application directly (and the actors involved in those activities),
 we can produce a use case UML diagram like that in figure~\ref{use-case}.
 
+This illustrates only a subset of the expected behaviours for a full
+BBC search application, but touches on some of the diversity of the
+potential uses. For the purposes of our initial design, we can next look
+into defining the system behaviour for some of these use cases.
+
 \begin{sidewaysfigure}
   \begin{center}
     \includegraphics[width=\linewidth]{use_case.png}
@@ -137,17 +140,7 @@ we can produce a use case UML diagram like that in figure~\ref{use-case}.
   \caption{Use case diagram for BBC Search application\label{use-case}}
 \end{sidewaysfigure}
 
-This illustrates only a subset of the expected behaviours for a full
-BBC search application, but touches on some of the diversity of the
-potential uses. For the purposes of our initial design, we can next look
-into defining the system behaviour for some of these use cases.
-
 \section{System Behaviour}
-
-Figure~\ref{sequence-user} shows a sequence diagram defining a user
-interacting with the search system and figure~\ref{sequence-producer}
-shows how a TV producer indirectly interacts with search by providing
-information that ultimately ends up in the search indexes.
 
 \begin{comment}
 @startuml sequence_producer.png
@@ -175,12 +168,17 @@ deactivate indexes
 
 @enduml
 \end{comment}
-\begin{figure}
+\begin{figure}[t]
   \begin{center}
     \includegraphics[width=\linewidth]{sequence_producer.png}
   \end{center}
   \caption{Sequence diagram showing publication of programme information to the search indexes\label{sequence-producer}}
 \end{figure}
+
+Figure~\ref{sequence-user} shows a sequence diagram defining a user
+interacting with the search system and figure~\ref{sequence-producer}
+shows how a TV producer indirectly interacts with search by providing
+information that ultimately ends up in the search indexes.
 
 The key design decision in figure~\ref{sequence-producer} is the use of
 asynchronous messages only. A non-blocking set of interactions such as
@@ -246,12 +244,12 @@ deactivate www
 
 @enduml
 \end{comment}
-\begin{sidewaysfigure}
+\begin{figure}[p]
   \begin{center}
     \includegraphics[width=\linewidth]{sequence_user.png}
   \end{center}
   \caption{Sequence diagram showing a user interacting with search\label{sequence-user}}
-\end{sidewaysfigure}
+\end{figure}
 
 Note in figure~\ref{sequence-user} that while the search indexes
 will contain representations of content
@@ -273,30 +271,224 @@ service applications per page of results. This can be done in parallel, but
 the fact still remains that the user has to wait for all this to
 assemble before seeing even one result.
 
+One solution to this in modern web application design is to
+push the lazy loading into the web browser using AJAX. \cite{garrett2005ajax}
+Such a solution is depicted in figure~\ref{sequence-ajax}. Whilst
+this still requires just as many calls to backend services --
+perhaps even more complexity as the calls are going through
+more layers -- it can give a user experience than appears more responsive.
+
+Preparing a search results page with minimal information that is then
+augmented asynchronously is a user experience technique that gives the
+illusion of lower latency; the additional information can update the page
+during the user's reaction time in the best case. This is an important
+aspect of user experience to get right as multivariate testing at Google
+in 2006 showed that an additional 500ms of latency dropped traffic
+and revenue by 20\%. \cite{linden2006marissa}
+
+\begin{comment}
+@startuml sequence_ajax.png
+
+skinparam monochrome true
+
+actor User
+participant "BBC Website" as www
+participant "Search Service" as search
+participant "Search Indexes" as indexes
+participant "Source Service" as source
+
+User -> www : types query into search box
+activate www
+
+  www -> search
+  activate search
+
+    note over search
+      The service may want to vary the
+      query for a number of reasons such
+      as the type of device the user has
+      or the nature of the query itself.
+    end note
+
+    search -> search : decide query parameters
+
+    search -> indexes : raw query
+    activate indexes
+    indexes --> search : list of matching items
+    deactivate indexes
+
+    search --> www : Return stub items
+    deactivate search
+    
+    www --> User : search results page
+
+    note over www
+      Website remains active using Javascript to do 
+      AJAX requests for further information for
+      each result.
+    end note
+
+    loop for each item
+      www ->> search : Fetch more info about item
+      activate search
+      search -> source : Proxy to source for info
+      activate source
+      source --> search : Return info in source's own format
+      deactivate source
+      search --> www : Return info in common format
+      deactivate search
+      www --> User : Update page in front of user as info arrives
+    end
+
+deactivate www
+
+@enduml
+\end{comment}
+\begin{figure}[p]
+  \begin{center}
+    \includegraphics[width=\linewidth]{sequence_ajax.png}
+  \end{center}
+  \caption{Sequence diagram showing rich information lazy-loaded via AJAX\label{sequence-ajax}}
+\end{figure}
+
 \section{Domain Model}
+
+It has been expressed already that a BBC-wide search application
+is going to have to index, retrieve and display a diverse set of
+information. Parts of the application might well want to incorporate
+a domain model \cite{fowler2002patterns} so as to understand how
+to perform each of these actions against each possible item
+the search application could return as a search result. A maximal
+model is shown in figure~\ref{model} that attempts to capture
+a good proportion of the content and concepts the BBC has
+been attempting to model over several years. This model is
+an aggregate of individual ontologies developed for specific purposes,
+but given the search application has to provide the discovery for
+the full set of this information, it is not unreasonable that
+a search application would have a domain model that covers the totality.
+
+Note that complexity of information for programmes alone. \cite{raimond2009bbc}
+A programme to a member of the public could actually refer to an
+exact episode or indeed the \emph{brand}, i.e. the title that
+persists to all episodes. An example of a brand would be
+\emph{Doctor Who}, which itself contains multiple series, which in turn
+contain a collection of episodes. Note that the brand itself has episodes
+as immediate children that do not live under a series, e.g. Christmas specials.
+It is also the case that certain things do not have brands or series, e.g.
+a film is modelled as a one-off episode.
+
+This leads to some difficult questions for a search application. If a user
+searches for the text ``doctor who'', are they expecting a link to the
+latest episode to watch on iPlayer, information about the next episode
+-- such as when it is due to be broadcast -- or a link to the overall
+home page for the entire Doctor Who brand?
+
+The model also skims the surface of the sport ontology \cite{rayfield2011bbc}
+created before the 2012 Olympic games, which aims to model the whole domain
+of sporting personalities, events and competitions (and more). This might
+be too fine-grained for the domain model used within the search application,
+but it is likely that people will want to search for competitions like
+``World Cup'' or sporting disciplines such as ``football''. A search application
+that understands these concepts as entities in their own right may well
+be able to direct users at a curated, dedicated ``home page'' thereof alongside
+simply matching articles and other works that contain those terms only.
+
 \begin{comment}
 @startuml model.png
 
 skinparam monochrome true
 skinparam circledCharacterRadius 0
 skinparam circledCharacterFontSize 0
-skinparam classFontSize 20
 
-class CreativeWork
+
+package CreativeWorks {
+class CreativeWork {
+  title : String
+  dateModified : DateTime
+  dateCreated : DateTime
+  category : String
+  description : String
+  thumbnail: Image
+}
 class NewsItem extends CreativeWork
-class Programme extends CreativeWork
 class BlogPost extends CreativeWork
 class LiveCoverage extends CreativeWork
 class LiveEventPage extends CreativeWork
 
-class Thing
+interface Format
+class TextualFormat extends Format
+class VideoFormat extends Format
+class InteractiveFormat extends Format
+class ImageFormat extends Format
+class AudioFormat extends Format
+class PictureGalleryFormat extends Format
+}
+
+package Programmes {
+class Programme
+Programme <|-r- CreativeWork
+class Brand extends Programme
+class Series extends Programme
+class Episode extends Programme
+
+class Service
+class Version
+class Broadcast
+class Ondemand
+}
+
+Service "1" -- "0..n" Programme : masterBrand
+Episode "1" *-- "0..n" Version : hasVersions
+
+Version "1" -- "0..n" Broadcast : broadcasts
+Version "1" -- "0..n" Ondemand : availableOndemandWindows
+
+Broadcast "1..n" -- "1" Service : broadcastOn
+Ondemand "1..n" -- "1" Service : availableOn
+
+Brand "1" *-r- "0..n" Series
+Series "1" *-d- "0..n" Series
+Series "1" *-r- "0..n" Episode
+
+package Concepts {
+class WebDocument
+class Thing {
+  preferredLabel
+}
 class Person extends Thing
 class Event extends Thing
 class Place extends Thing
+class Theme extends Thing
+class Organisation extends Thing
+}
+
+CreativeWork "1" -- "1..2" WebDocument : primaryContent
+Thing "1" -- "0..n" WebDocument : primaryTopic
+CreativeWork "0..n" -- "1" Format : primaryFormat
+CreativeWork "0..n" -- "0..n" Thing : tag
+Thing "0..n" -- "0..n" Thing : notablyAssociatedWith
+
+
+package Sport {
+class SportCompetition extends Event
+class SportDiscipline extends Thing
+}
+
+Event "0..n" -- "0..n" Programme : coverage
+SportCompetition "0..n" -- "0..n" Person : competesIn
+SportDiscipline "1" -- "0..n" SportCompetition
+
 @enduml
 \end{comment}
+\begin{sidewaysfigure}
+  \begin{center}
+    \includegraphics[width=\linewidth]{model.png}
+  \end{center}
+  \caption{Domain model for content items and other things pertinent to BBC contenet\label{model}}
+\end{sidewaysfigure}
 
 \chapter{Analysis}
+\label{analysis}
 
 \chapter{Evaluation}
 
