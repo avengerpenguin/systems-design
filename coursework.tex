@@ -1,5 +1,9 @@
 \documentclass[a4paper]{report}
 
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{verbatim}
+
 \title{Designing a Search for the BBC}
 \author{Ross Fenning}
 
@@ -47,8 +51,8 @@ of needs, preferences and technical ability. It is clear it is no small
 task to design a search-based discovery mechanism of millions of diverse
 pieces of content aimed at millions of diverse people.
 
-A suitable approach for tackling real-word problems is \emph{Soft Systems Methodology} (SSM)
-\cite{checkland2006learning}, which will allows us to stand back from
+Using \emph{Soft Systems Methodology} (SSM)
+\cite{checkland2006learning}, we can stand back from
 an ontological approach of defining what the search system \emph{is} or
 \emph{comprises} and instead take an \emph{epistemological} view of search
 as a system. With this view, we could consider a system that holistically
@@ -70,17 +74,227 @@ catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
 as it shares a lot of similarity with television in terms of use and any
 differences are out of scope for this design.
 
+The overall design objective will be to create an initial proposal for a
+search application to drive the missing components within the holistic
+system depicted in figure~\ref{rich-picture}. Some subsystems already
+exist, e.g. for journalists to write news articles and publish them on the
+BBC News website, but for the purposes of this design exercise, we will
+assume no existing application to drive the search and discovery of
+those websites.
+
+It is likely that the design will look to integrate with
+existing subsystems where possible rather than attempt to replicate
+work already done. For example, journalists will prefer that a search
+application can integrate with the system into which they are publishing
+their articles instead of being required to publish their articles into
+two systems.
+
 \chapter{Design}
 
 \section{Use cases}
 
-\end{comment}
-\begin{figure}[p]
+From the rich picture in figure~\ref{rich-picture}, we can attempt to
+extract the activities that are clearly within the remit of a search
+application. For example, the ability for editorial staff to manage
+the content of the search indexes sounds like a feature the search
+application would provide. Conversely, television actors and other
+contributors to a programme are likely to interact only within a television
+production subsystem with a producer or content editor being responsible
+for publishing information about the final production's broadcast and
+availability for streaming online.
+
+This is not to say that we can simply cross off certain elements from
+our depiction of the problem because they do not directly interact
+with the subsystem being designed. The \emph{systems thinking} approach
+advocated by Checkland \cite{checkland1999systems} encourages us to
+consider the irreducible properties of each system at each level
+of abstraction. Thus we need to consider not only a search application
+subsystem that solves specific problems for its immediate users, but
+also an application that contributes to the desirable, emergent
+properties of the BBC service as a whole.
+
+In the specific example of television programming, we need to maintain
+systems thinking throughout the design process to ensure that we
+create a search application that both meets the needs of the public
+using the application to search for programmes and forms part of
+a television production and delivery system that itself meets the
+needs of the television-watching public. It is not always the case
+that the holistic system will behave predictably from the behaviours
+of its parts.
+
+Thus a suitable design strategy is to apply systems design to
+the search application in isolation -- as a \emph{hard problem} --
+but then to use the wider system to inform, shape and evaluate that design.
+
+Having extracted the activities that appear to pertain to the
+search application directly (and the actors involved in those activities),
+we can produce a use case UML diagram like that in figure~\ref{use-case}.
+
+\begin{sidewaysfigure}
   \begin{center}
     \includegraphics[width=\linewidth]{use_case.png}
   \end{center}
   \caption{Use case diagram for BBC Search application\label{use-case}}
+\end{sidewaysfigure}
+
+This illustrates only a subset of the expected behaviours for a full
+BBC search application, but touches on some of the diversity of the
+potential uses. For the purposes of our initial design, we can next look
+into defining the system behaviour for some of these use cases.
+
+\section{System Behaviour}
+
+Figure~\ref{sequence-user} shows a sequence diagram defining a user
+interacting with the search system and figure~\ref{sequence-producer}
+shows how a TV producer indirectly interacts with search by providing
+information that ultimately ends up in the search indexes.
+
+\begin{comment}
+@startuml sequence_producer.png
+
+skinparam monochrome true
+
+actor Producer
+participant "Programmes Database" as prog
+participant "Search Index Service" as service
+participant "Search Indexes" as indexes
+
+Producer ->> prog
+
+activate prog
+prog ->> service
+deactivate prog
+
+activate service
+service ->> indexes
+deactivate service
+
+activate indexes
+indexes -> indexes : reindex
+deactivate indexes
+
+@enduml
+\end{comment}
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=\linewidth]{sequence_producer.png}
+  \end{center}
+  \caption{Sequence diagram showing publication of programme information to the search indexes\label{sequence-producer}}
 \end{figure}
+
+The key design decision in figure~\ref{sequence-producer} is the use of
+asynchronous messages only. A non-blocking set of interactions such as
+publish-subscribe \cite{hohpe2004enterprise} is a good way to decouple
+systems that produce and store progamme information from the search
+application systems. If the systems surrounding the programmes database
+can be built a \emph{channel adapter} \cite{hohpe2004enterprise} to integrate
+it to a messaging system, then the search indexes can receive changes to
+information without actors such as TV producers, journalists and content
+editors even being aware this is happening.
+
+\begin{comment}
+@startuml sequence_user.png
+
+skinparam monochrome true
+
+actor User
+participant "BBC Website" as www
+participant "Search Service" as search
+participant "Search Indexes" as indexes
+participant "Source Service" as source
+
+User -> www : types query into search box
+activate www
+
+  www -> search
+  activate search
+
+    note over search
+      The service may want to vary the
+      query for a number of reasons such
+      as the type of device the user has
+      or the nature of the query itself.
+    end note
+
+    search -> search : decide query parameters
+
+    search -> indexes : raw query
+    activate indexes
+    indexes --> search : list of matching items
+    deactivate indexes
+
+    loop for each item
+      search -> source : Fetch more info about item
+      activate source
+
+      note right of search
+        We can enrich the retrieved items with
+        more information from the original source
+        systems rather than replicate all domain
+        knowledge in the search indexes.
+      end note
+
+      source --> search : Returns richer info
+      deactivate source
+    end
+
+  search --> www : list of enriched results
+  deactivate search
+
+www --> User : search results page
+deactivate www
+
+@enduml
+\end{comment}
+\begin{sidewaysfigure}
+  \begin{center}
+    \includegraphics[width=\linewidth]{sequence_user.png}
+  \end{center}
+  \caption{Sequence diagram showing a user interacting with search\label{sequence-user}}
+\end{sidewaysfigure}
+
+Note in figure~\ref{sequence-user} that while the search indexes
+will contain representations of content
+from several source systems, the intention shown is that richer information
+about the domain model will not be held in the search indexes. This goes
+along with the principle of separation of concerns\cite{dijkstra1982role}
+in that the search index component can focus on optimising its data
+structures around retrieval. This kind of modularity also allows source
+systems maintained by other teams to take the responsibility of the
+accuracy of the information, which fits in with the wider holistic view
+of the system in that the volume of information involved requires that
+separate teams are responsible for the accuracy of their data.
+
+This can be seen as similar to the \emph{Lazy Load} pattern
+\cite{fowler2002patterns} in that the search indexes will only return
+stub objects that are capable of retrieving the fuller information
+to need. This, however, could lead to a lot of calls to different
+service applications per page of results. This can be done in parallel, but
+the fact still remains that the user has to wait for all this to
+assemble before seeing even one result.
+
+\section{Domain Model}
+\begin{comment}
+@startuml model.png
+
+skinparam monochrome true
+skinparam circledCharacterRadius 0
+skinparam circledCharacterFontSize 0
+skinparam classFontSize 20
+
+class CreativeWork
+class NewsItem extends CreativeWork
+class Programme extends CreativeWork
+class BlogPost extends CreativeWork
+class LiveCoverage extends CreativeWork
+class LiveEventPage extends CreativeWork
+
+class Thing
+class Person extends Thing
+class Event extends Thing
+class Place extends Thing
+@enduml
+\end{comment}
 
 \chapter{Analysis}
 
