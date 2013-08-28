@@ -151,7 +151,7 @@ into defining the system behaviour for some of these use cases.
 \section{System Behaviour}
 
 \begin{comment}
-@startuml sequence_producer.png
+@startuml plant_sequence_producer.png
 
 skinparam monochrome true
 
@@ -178,13 +178,13 @@ deactivate indexes
 \end{comment}
 \begin{figure}[t]
   \begin{center}
-    \includegraphics[width=\linewidth]{sequence_producer.png}
+    \includegraphics[width=\linewidth]{plant_sequence_producer.png}
   \end{center}
   \caption{Sequence diagram showing publication of programme information to the search indexes\label{sequence-producer}}
 \end{figure}
 
 \begin{comment}
-@startuml sequence_user.png
+@startuml plant_sequence_user.png
 
 skinparam monochrome true
 
@@ -239,13 +239,13 @@ deactivate www
 \end{comment}
 \begin{figure}[p]
   \begin{center}
-    \includegraphics[height=0.4\textheight]{sequence_user.png}
+    \includegraphics[height=0.4\textheight]{plant_sequence_user.png}
   \end{center}
   \caption{Sequence diagram showing a user interacting with search\label{sequence-user}}
 \end{figure}
 
 \begin{comment}
-@startuml sequence_ajax.png
+@startuml plant_sequence_ajax.png
 
 skinparam monochrome true
 
@@ -304,7 +304,7 @@ deactivate www
 \end{comment}
 \begin{figure}[p]
   \begin{center}
-    \includegraphics[height=0.4\textheight]{sequence_ajax.png}
+    \includegraphics[height=0.4\textheight]{plant_sequence_ajax.png}
   \end{center}
   \caption{Sequence diagram showing rich information lazy-loaded via AJAX\label{sequence-ajax}}
 \end{figure}
@@ -402,7 +402,7 @@ be able to direct users at a curated, dedicated ``home page'' thereof alongside
 simply matching articles and other works that contain those terms only.
 
 \begin{comment}
-@startuml model.png
+@startuml plant_model.png
 
 skinparam monochrome true
 skinparam circledCharacterRadius 0
@@ -490,7 +490,7 @@ SportDiscipline "1" -- "0..n" SportCompetition
 \end{comment}
 \begin{sidewaysfigure}
   \begin{center}
-    \includegraphics[width=\linewidth]{model.png}
+    \includegraphics[width=\linewidth]{plant_model.png}
   \end{center}
   \caption{Domain model for content items and other things pertinent to BBC content\label{model}}
 \end{sidewaysfigure}
@@ -621,7 +621,7 @@ which is only briefly touched on in my attempts to relate the
 data model to the user's interaction with the system.
 
 \chapter{Evaluation}
-\ref{evaluation}
+\label{evaluation}
 
 Overall, we have some promising, high-level models from which to
 start making such more fine-grained decisions about the search
@@ -656,7 +656,7 @@ Even the models that are presented in this report do not paint the full
 picture, but it could be argued that it is not their purpose to do so.
 As stated at the end of section~\ref{appraisal}, the use case diagram
 provides a starting point that might be sufficient for an early
-iteration of a project in an \emph{Agile} methodology. \cite{beck2001manifesto}
+iteration of a project in an \emph{Agile} methodology. \cite{beck2001agile}
 
 An Agile approach to developing the search application could distill
 the use cases even further and shape the requirements to the rest
@@ -682,9 +682,9 @@ communication aspect UML modelling and argue that encouraging such debate
 is a successful application of UML, not a failure because a decision
 has not been made between two designs at this early stage.
 
-Some of this hints at drawback of UML modelling being that it encourages
-a lot of design decision at an early stage -- stage at which we arguably
-have the least information. \cite{kelly2013conway} There are plenty of
+Some of this hints at a drawback of UML modelling being that it encourages
+a lot of design decision at an early stage of a project -- a stage at which we arguably
+have the least information. \cite{kelly2013conway} However, there are plenty of
 efforts in spite of this that promote modelling and UML being used
 compatibly within an Agile process. The use of other modelling techniques
 in an Agile setting such as
@@ -692,6 +692,13 @@ Rational Unified Process (RUP) and Agile Unified Process (AUP) are described by
 Ambler. \cite{ambler2002agile} It may have been more suitable to incorporate
 a more diverse range of modelling techniques in the design and analysis
 presented so as to find the true strengths of each respective approach.
+
+In conclusion, the UML modelling presented is a key part of solving
+the BBC search problem, but it is far from sufficient in its own right.
+Designing to the level of detail required would result in a rigid
+development plan that made unverified assumptions, but an iterative
+approach to modelling that starts at a high-level and updates as
+development progresses could be used successfully in such a project.
 
 \appendix
 \chapter{Proposal}
