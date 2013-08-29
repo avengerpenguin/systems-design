@@ -15,14 +15,13 @@
 
 \chapter{The Problem}
 
-\section{Rationale}
+\section{Background}
 
 The BBC has been publishing content on the World Wide Web since the
 mid 1990s and since then the amount and the diversity has increased
-exponentially. Large websites or indeed the web as a whole would not have
-been usable nor useful without the rise in quality of web search engines to
-help people find content based on keywords or phases that describe or
-appear in the sought after pages.
+exponentially. Large websites -- or indeed the web as a whole --
+would not have been usable nor useful without the rise in quality of
+web search engines.
 
 A large challenge for any web search application is to provide a common
 interface and set of user interactions that can equally index, search
@@ -42,7 +41,7 @@ has about its own content.
 The purpose of this report is to start the high-level design -- and perhaps
 look at the lower levels of one or two aspects -- of a search application
 specific to BBC content. The intent is to provide a consistent user interface
-that allows the audience to find equally news articles, sport results,
+that allows the audience to find news articles, sport results,
 TV catch-up, education resources and everything else the BBC produces.
 
 The target audience for the BBC is effectively the entire population of the UK
@@ -63,8 +62,8 @@ particular programme they missed on television) or those desires are
 \emph{fuzzy} (e.g. news about a certain topic, any comedy programme, learning
 materials about the Industrial Revolution).
 
-Checkland \cite{checkland1990soft} decribed a \emph{Rich Picture} approach to
-representing a problem situation early in SSM approaches.
+Checkland and Scoles \cite{checkland1990soft} decribed a \emph{Rich Picture} approach
+for representing a problem situation early in SSM approaches.
 Given the size and complexity of the
 search system as a whole, a useful initial step is to create such an informal
 representation of what is known about the problem. Figure~\ref{rich-picture}
@@ -79,7 +78,7 @@ search application to drive the missing components within the holistic
 system depicted in figure~\ref{rich-picture}. Some subsystems already
 exist, e.g. for journalists to write news articles and publish them on the
 BBC News website, but for the purposes of this design exercise, we will
-assume no existing application to drive the search and discovery of
+assume no existing application to drive a search-based discovery of
 those websites.
 
 It is likely that the design will look to integrate with
@@ -512,7 +511,7 @@ to collection all the possible use cases of the search system. It
 is likely that the variations of the use cases are so numerous
 that different diagrams exploring different combinations of use
 cases should be made to replace the single one given. For instance,
-very little has been touched on around user's seeking educational
+very little has been touched on around users seeking educational
 and informative material such as GCSE Bitesize or any other
 learning resouces.
 
