@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{verbatim}
+\usepackage{url}
 
 \title{Designing a Search for the BBC}
 \author{Ross Fenning}
@@ -133,7 +134,7 @@ but then to use the wider system to inform, shape and evaluate that design.
 
 Having extracted the activities that appear to pertain to the
 search application directly (and the actors involved in those activities),
-we can produce a use case UML diagram like that in figure~\ref{use-case}.
+we can produce the use case UML diagram shown in figure~\ref{use-case}.
 
 This illustrates only a subset of the expected behaviours for a full
 BBC search application, but touches on some of the diversity of the
@@ -308,10 +309,13 @@ deactivate www
   \caption{Sequence diagram showing rich information lazy-loaded via AJAX\label{sequence-ajax}}
 \end{figure}
 
-Figure~\ref{sequence-user} shows a sequence diagram defining a user
-interacting with the search system and figure~\ref{sequence-producer}
+
+
+Figure~\ref{sequence-producer}
 shows how a TV producer indirectly interacts with search by providing
-information that ultimately ends up in the search indexes.
+information that ultimately ends up in the search indexes and
+figure~\ref{sequence-user} shows a sequence diagram defining a user
+interacting with the search system
 
 The key design decision in figure~\ref{sequence-producer} is the use of
 asynchronous messages only. A non-blocking set of interactions such as
@@ -320,19 +324,19 @@ systems that produce and store progamme information from the search
 application systems. If the systems surrounding the programmes database
 can be built a \emph{channel adapter} \cite{hohpe2004enterprise} to integrate
 it to a messaging system, then the search indexes can receive changes to
-information without actors such as TV producers, journalists and content
-editors even being aware this is happening.
+information without TV producers, journalists, content
+editors, etc. even being aware this is happening.
 
 Note in figure~\ref{sequence-user} that while the search indexes
 will contain representations of content
 from several source systems, the intention shown is that richer information
 about the domain model will not be held in the search indexes. This goes
-along with the principle of separation of concerns\cite{dijkstra1982role}
+along with the principle of separation of concerns \cite{dijkstra1982role}
 in that the search index component can focus on optimising its data
 structures around retrieval. This kind of modularity also allows source
 systems maintained by other teams to take the responsibility of the
 accuracy of the information, which fits in with the wider holistic view
-of the system in that the volume of information involved requires that
+of the system: the volume of information involved requires that
 separate teams are responsible for the accuracy of their data.
 
 This can be seen as similar to the \emph{Lazy Load} pattern
@@ -348,15 +352,12 @@ push the lazy loading into the web browser using AJAX. \cite{garrett2005ajax}
 Such a solution is depicted in figure~\ref{sequence-ajax}. Whilst
 this still requires just as many calls to backend services --
 perhaps even more complexity as the calls are going through
-more layers -- it can give a user experience than appears more responsive.
+more layers -- it can give a user experience that appears more responsive.
 
 Preparing a search results page with minimal information that is then
 augmented asynchronously is a user experience technique that gives the
 illusion of lower latency; the additional information can update the page
-during the user's reaction time in the best case. This is an important
-aspect of user experience to get right as multivariate testing at Google
-in 2006 showed that an additional 500ms of latency dropped traffic
-and revenue by 20\%. \cite{linden2006marissa}
+during the user's reaction time in the best case.
 
 \section{Domain Model}
 
@@ -376,8 +377,8 @@ a search application would have a domain model that covers the totality.
 
 Note that complexity of information for programmes alone. \cite{raimond2009bbc}
 A programme to a member of the public could actually refer to an
-exact episode or indeed the \emph{brand}, i.e. the title that
-persists to all episodes. An example of a brand would be
+exact episode or indeed the \emph{brand}, i.e. the title of the programme
+in general. An example of a brand would be
 \emph{Doctor Who}, which itself contains multiple series, which in turn
 contain a collection of episodes. Note that the brand itself has episodes
 as immediate children that do not live under a series, e.g. Christmas specials.
@@ -398,7 +399,7 @@ but it is likely that people will want to search for competitions like
 ``World Cup'' or sporting disciplines such as ``football''. A search application
 that understands these concepts as entities in their own right may well
 be able to direct users at a curated, dedicated ``home page'' thereof alongside
-simply matching articles and other works that contain those terms only.
+simply matching articles and other works that contain those terms.
 
 \begin{comment}
 @startuml plant_model.png
@@ -494,12 +495,11 @@ SportDiscipline "1" -- "0..n" SportCompetition
   \caption{Domain model for content items and other things pertinent to BBC content\label{model}}
 \end{sidewaysfigure}
 
-\section{Discussion and Appraisal}
+\section{Discussion and Analysis}
 \label{appraisal}
 
-The first question that should be asked is whether the problem
-given has been solved as much as it can be. The problem of
-a BBC-wide search application was predicted  --
+xThe problem of
+a BBC-wide search application was predicted --
 and has certainly shown itself -- to be a very large-scale problem, the
 full extent of which cannot be covered in this report. Thus it
 is reasonable to conclude that the problem is not yet solved
@@ -516,9 +516,9 @@ and informative material such as GCSE Bitesize or any other
 learning resouces.
 
 The sequence diagram for the producer (or any other content creator)
-indirectly getting their content into the seach system demonsrates
+indirectly getting their content into the search system demonsrates
 the need for asynchronous messaging (and publish-subscribe), but
-the nuances of such a process are not comphrehensively shown in
+the nuances of such a process are not comprehensively shown in
 this format. A better illutration for such a message-based integration
 system might be derived from the illutrated patterns created
 by Hohpe and Woolf. \cite{hohpe2004enterprise}
@@ -533,17 +533,17 @@ the source system (the index) simply does not have. At a more purist
 extreme, this could follow a \emph{claim check} pattern where
 the index returns only globally-unique identifiers for the matching
 items and makes no attempt to present any other knowledge about them
-(and thus avoids any synchronisation issues if an item is updated as
+(and thus avoids any synchronisation issues if an item is updated at
 source).
 
-The latter approach fully decouples the search indexes from any
+The latter pattern fully decouples the search indexes from any
 deeper information -- leaving that responsbility to appropriate
-source system -- but means that the raw, stub results are near useful
+source system -- but means that the raw, stub results are near-useless
 to an end user. This makes the AJAX-based alternative approach
 in figure~\ref{sequence-ajax}
 less of a desirable option (would a user really be presented a list
 of URIs while some Javascript code replaces them one by one with
-actual information?). Given the AJAX-driven behaviour appears
+actual information?). Given the AJAX-driven behaviour still appears
 desirable in terms of responsiveness, it would seem that some trade-off
 would need to happen in terms of what the indexes store as additional
 information.
@@ -563,9 +563,9 @@ would only harm maintainability.
 Thus the domain model given in figure~\ref{model} should only serve
 as a communication artefact that leads to further development of
 a domain model more suitable to the needs of the search application
-without the need to maintain more than is necessary. The use
+without the burden of maintaining more than is necessary. The use
 of \emph{subtype polymorphism} \cite{booch2007object} is likely
-to be key to ensure the search domain model needs only use the APIs
+to be key to ensure the search domain model contains only the APIs
 it needs. For example, does the search application have a need
 to differentiate between a \emph{NewsItem} and a \emph{BlogPost}
 for the purposes of displaying the search result's title? If the
@@ -600,14 +600,6 @@ matches (since football matches are \emph{Event}s that occur in
 a \emph{Place}, it is reasonable for a weather property to be
 set thereon).
 
-Some of the advantages from duck-typing could be mirrored in
-providing building the domain model around interfaces -- e.g.
-\emph{class FootballMatch extends Event implements WeatherLocation} --
-but it is still cumbersome to create such a large, static-typed
-domain model that is used both at index time (in extracting the
-information to build the indexes) and at query time (to understand
-what item we have found and how to present it to the user).
-
 Overall, we have some promising, high-level models from which to
 start making such more fine-grained decisions about the search
 application. The use cases are likely sufficient for early iterations
@@ -622,17 +614,6 @@ data model to the user's interaction with the system.
 \chapter{Evaluation}
 \label{evaluation}
 
-Overall, we have some promising, high-level models from which to
-start making such more fine-grained decisions about the search
-application. The use cases are likely sufficient for early iterations
-or a \emph{Minimal Viable Product} \cite{junk2000dynamic} and
-the behaviours capture the overall needs of the system. There is still
-much scope for returning to our systems thinking and Soft Systems
-Methodology to monitor the general model for Checkland's ``3 Es''
-(efficacy, efficiency and effectiveness) \cite{checkland1990soft},
-which is only briefly touched on in my attempts to relate the
-data model to the user's interaction with the system.
-
 The high-level nature of the modelling achieved has made it
 difficult to meet any objectives over performance, latency or
 robustness of software components involved. A BBC search application
@@ -642,12 +623,12 @@ non-functional requirements are a challenge in their own right
 and have not been met with the UML modelling presented.
 
 This is not to say that UML is not capable as a tool for presenting
-architecture around performance and resilience. It is perhaps
+architecture around performance and resilience. However, it is perhaps
 more appropriate to model and present some of these aspects through
 component and deployment diagrams. Behaviour diagrams such as sequence
 and activity do not suit well to showing timing or performance, although
 a series of sequence diagrams could show how behaviour changes
-in parts of the system to tolerate failure of certain components (e.g.
+in parts of the system to tolerate failure of other components (e.g.
 one component could be modelled to return from an internal cache if
 a collaborator is returning temporary error status codes).
 
@@ -664,8 +645,7 @@ to changes. A similar approach would allow us to start with the smaller
 domain model also discussed in section~\ref{appraisal} and allow it to grow
 to the necessary size to need -- i.e. we can defer the decision of ``how big
 should the domain model be?'' until we are at a point where we have more
-information to answer that (at which point we would hope it is as comprehensive
-as is necessary to support the application currently running and no more).
+information to answer such a question.
 
 Thus even if the use case and domain models are not as comprehensive or
 as honed as they need to be to build the entire application, they serve
@@ -677,7 +657,7 @@ they modelled directly in the application being built.
 The sequence diagrams seemed to provoke more debate of the merits of
 returning rich information in a single response versus an AJAX-driven
 approach (or some trade-off in between). Again, I would emphasise the
-communication aspect UML modelling and argue that encouraging such debate
+communication aspect of UML modelling and argue that encouraging such debate
 is a successful application of UML, not a failure because a decision
 has not been made between two designs at this early stage.
 
@@ -687,8 +667,9 @@ have the least information. \cite{kelly2013conway} However, there are plenty of
 efforts in spite of this that promote modelling and UML being used
 compatibly within an Agile process. The use of other modelling techniques
 in an Agile setting such as
-Rational Unified Process (RUP) and Agile Unified Process (AUP) are described by
-Ambler. \cite{ambler2002agile} It may have been more suitable to incorporate
+Rational Unified Process (RUP) and Agile Unified Process (AUP) have been
+suggested as suitable in an Agile project.
+\cite{ambler2002agile} It may have been more suitable to incorporate
 a more diverse range of modelling techniques in the design and analysis
 presented so as to find the true strengths of each respective approach.
 

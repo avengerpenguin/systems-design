@@ -73,7 +73,7 @@ digraph G {
     weather->query;
     games->query;
 
-    spell->query;
+    query->spell;
 
     write_news->update;
     prog->update;
