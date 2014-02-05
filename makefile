@@ -15,7 +15,6 @@ SRC	:= $(shell egrep -l '^[^%]*\\begin\{document\}' *.tex)
 PDF	= $(SRC:%.tex=%.pdf)
 
 define run-latex
-	plantuml $<
 	$(COPY);$(LATEX) $<
 	egrep $(MAKEIDX) $< && ($(MAKEINDEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) >/dev/null; true
 	egrep -c $(RERUNBIB) $(<:%.tex=%.log) && ($(BIBTEX) $(<:%.tex=%);$(COPY);$(LATEX) $<) ; true
@@ -32,7 +31,14 @@ clean:
 
 all: pdf
 
-pdf: use_case.png plants $(PDF)
+pdf: use_case.png plants
+	pdflatex paper.tex
+	bibtex paper.aux
+	pdflatex paper.tex
+	pdflatex paper.tex
+
+proposal:
+	pdflatex proposal.tex
 
 use_case.png: use_case.dot
 	dot -Tpng use_case.dot > use_case.png

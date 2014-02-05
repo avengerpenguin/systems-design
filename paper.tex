@@ -1,4 +1,4 @@
-\documentclass[a4paper]{report}
+\documentclass{llncs}
 
 \usepackage{graphicx}
 \usepackage{rotating}
@@ -8,6 +8,7 @@
 
 \title{Designing a Search for the BBC}
 \author{Ross Fenning}
+\institute{BBC}
 
 \begin{document}
 
@@ -15,9 +16,9 @@
 
 \tableofcontents
 
-\chapter{The Problem}
+\section{The Problem}
 
-\section{Background}
+\subsection{Background}
 
 The BBC has been publishing content on the World Wide Web since the
 mid 1990s and since then the amount and the diversity has increased
@@ -38,7 +39,7 @@ will find any piece of content, there is a perceived need for a
 BBC-specific search that makes better use of the internal knowledge the BBC
 has about its own content.
 
-\section{Objectives}
+\subsection{Objectives}
 
 The purpose of this report is to start the high-level design -- and perhaps
 look at the lower levels of one or two aspects -- of a search application
@@ -97,10 +98,10 @@ two systems.
   \caption{Rich Picture of the BBC search system\label{rich-picture}}
 \end{sidewaysfigure}
 
-\chapter{Design}
+\section{Design}
 \label{design}
 
-\section{Use cases}
+\subsection{Use cases}
 
 From the rich picture in figure~\ref{rich-picture}, we can attempt to
 extract the activities that are clearly within the remit of a search
@@ -149,7 +150,7 @@ into defining the system behaviour for some of these use cases.
   \caption{Use case diagram for BBC Search application\label{use-case}}
 \end{sidewaysfigure}
 
-\section{System Behaviour}
+\subsection{System Behaviour}
 
 \begin{comment}
 @startuml plant_sequence_producer.png
@@ -360,7 +361,7 @@ augmented asynchronously is a user experience technique that gives the
 illusion of lower latency; the additional information can update the page
 during the user's reaction time in the best case.
 
-\section{Domain Model}
+\subsection{Domain Model}
 
 It has been expressed already that a BBC-wide search application
 is going to have to index, retrieve and display a diverse set of
@@ -496,10 +497,10 @@ SportDiscipline "1" -- "0..n" SportCompetition
   \caption{Domain model for content items and other things pertinent to BBC content\label{model}}
 \end{sidewaysfigure}
 
-\section{Discussion and Analysis}
+\subsection{Discussion and Analysis}
 \label{appraisal}
 
-xThe problem of
+The problem of
 a BBC-wide search application was predicted --
 and has certainly shown itself -- to be a very large-scale problem, the
 full extent of which cannot be covered in this report. Thus it
@@ -612,7 +613,7 @@ Methodology to monitor the general model for Checkland's ``3 Es''
 which is only briefly touched on in my attempts to relate the
 data model to the user's interaction with the system.
 
-\chapter{Evaluation}
+\section{Evaluation}
 \label{evaluation}
 
 The high-level nature of the modelling achieved has made it
@@ -682,7 +683,7 @@ approach to modelling that starts at a high-level and updates as
 development progresses could be used successfully in such a project.
 
 \appendix
-\chapter{Proposal}
+\section{Proposal}
 
 \input{proposal-contents}
 
