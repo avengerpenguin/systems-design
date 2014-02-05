@@ -38,7 +38,7 @@ use_case.png: use_case.dot
 	dot -Tpng use_case.dot > use_case.png
 
 plants:
-	plantuml coursework.tex
+	plantuml paper.tex
 
 $(PDF) : %.pdf : %.tex
 	@$(run-latex)
