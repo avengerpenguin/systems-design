@@ -1,4 +1,4 @@
-\documentclass{llncs}
+\documentclass[oribibl]{llncs}
 
 \usepackage{graphicx}
 \usepackage{rotating}
@@ -7,14 +7,16 @@
 \usepackage[square]{natbib}
 
 \title{Designing a Search for the BBC}
-\author{Ross Fenning}
-\institute{BBC}
+\author{Ross Fenning\inst{1}}
+\institute{BBC \email{Ross.Fenning@bbc.co.uk}}
 
 \begin{document}
 
 \maketitle
 
-\tableofcontents
+\begin{abstract}
+
+\end{abstract}
 
 \section{The Problem}
 
@@ -78,7 +80,7 @@ differences are out of scope for this design.
 
 The overall design objective will be to create an initial proposal for a
 search application to drive the missing components within the holistic
-system depicted in figure~\ref{rich-picture}. Some subsystems already
+system depicted in Fig.~\ref{rich-picture}. Some subsystems already
 exist, e.g. for journalists to write news articles and publish them on the
 BBC News website, but for the purposes of this design exercise, we will
 assume no existing application to drive a search-based discovery of
@@ -103,7 +105,7 @@ two systems.
 
 \subsection{Use Cases}
 
-From the rich picture in figure~\ref{rich-picture}, we can attempt to
+From the rich picture in Fig.~\ref{rich-picture}, we can attempt to
 extract the activities that are clearly within the remit of a search
 application. For example, the ability for editorial staff to manage
 the content of the search indexes sounds like a feature the search
@@ -136,7 +138,7 @@ but then to use the wider system to inform, shape and evaluate that design.
 
 Having extracted the activities that appear to pertain to the
 search application directly (and the actors involved in those activities),
-we can produce the use case UML diagram shown in figure~\ref{use-case}.
+we can produce the use case UML diagram shown in Fig.~\ref{use-case}.
 
 This illustrates only a subset of the expected behaviours for a full
 BBC search application, but touches on some of the diversity of the
@@ -316,10 +318,10 @@ deactivate www
 Figure~\ref{sequence-producer}
 shows how a TV producer indirectly interacts with search by providing
 information that ultimately ends up in the search indexes and
-figure~\ref{sequence-user} shows a sequence diagram defining a user
+Fig.~\ref{sequence-user} shows a sequence diagram defining a user
 interacting with the search system
 
-The key design decision in figure~\ref{sequence-producer} is the use of
+The key design decision in Fig.~\ref{sequence-producer} is the use of
 asynchronous messages only. A non-blocking set of interactions such as
 publish-subscribe \citep{hohpe2004enterprise} is a good way to decouple
 systems that produce and store progamme information from the search
@@ -329,7 +331,7 @@ it to a messaging system, then the search indexes can receive changes to
 information without TV producers, journalists, content
 editors, etc. even being aware this is happening.
 
-Note in figure~\ref{sequence-user} that while the search indexes
+Note in Fig.~\ref{sequence-user} that while the search indexes
 will contain representations of content
 from several source systems, the intention shown is that richer information
 about the domain model will not be held in the search indexes. This goes
@@ -351,7 +353,7 @@ assemble before seeing even one result.
 
 One solution to this in modern web application design is to
 push the lazy loading into the web browser using AJAX. \citep{garrett2005ajax}
-Such a solution is depicted in figure~\ref{sequence-ajax}. Whilst
+Such a solution is depicted in Fig.~\ref{sequence-ajax}. Whilst
 this still requires just as many calls to backend services --
 perhaps even more complexity as the calls are going through
 more layers -- it can give a user experience that appears more responsive.
@@ -369,7 +371,7 @@ information. Parts of the application might well want to incorporate
 a domain model \citep{fowler2002patterns} so as to understand how
 to perform each of these actions against each possible item
 the search application could return as a search result. A maximal
-model is shown in figure~\ref{model} that attempts to capture
+model is shown in Fig.~\ref{model} that attempts to capture
 a good proportion of the content and concepts the BBC has
 been attempting to model over several years. This model is
 an aggregate of individual ontologies developed for specific purposes,
@@ -525,7 +527,7 @@ this format. A better illutration for such a message-based integration
 system might be derived from the illutrated patterns created
 by Hohpe and Woolf. \citep{hohpe2004enterprise}
 
-The behaviour of the query web application in figure~\ref{sequence-user}
+The behaviour of the query web application in Fig.~\ref{sequence-user}
 is defined with a hard line
 taken on keeping the information stored in the indexes to a minimum.
 At a basic level, this is not unlike a \emph{content enricher} pattern
@@ -542,7 +544,7 @@ The latter pattern fully decouples the search indexes from any
 deeper information -- leaving that responsbility to appropriate
 source system -- but means that the raw, stub results are near-useless
 to an end user. This makes the AJAX-based alternative approach
-in figure~\ref{sequence-ajax}
+in Fig.~\ref{sequence-ajax}
 less of a desirable option (would a user really be presented a list
 of URIs while some Javascript code replaces them one by one with
 actual information?). Given the AJAX-driven behaviour still appears
@@ -551,7 +553,7 @@ would need to happen in terms of what the indexes store as additional
 information.
 
 These decisions relate to how the system would implement the data model
-in figure~\ref{model}. The onotology described is an aggregation
+in Fig.~\ref{model}. The onotology described is an aggregation
 of several efforts by Raimond \citep{raimond2009bbc}, Rayfield
 \citep{rayfield2011bbc} and others -- along with some additional work
 to join them together -- to represent the wealth of
@@ -562,7 +564,7 @@ application that is \emph{coupled} to the individual ontologies
 in this way is brittle with regard to changes therein. Duplication
 would only harm maintainability.
 
-Thus the domain model given in figure~\ref{model} should only serve
+Thus the domain model given in Fig.~\ref{model} should only serve
 as a communication artefact that leads to further development of
 a domain model more suitable to the needs of the search application
 without the burden of maintaining more than is necessary. The use
