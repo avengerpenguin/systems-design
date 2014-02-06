@@ -15,7 +15,10 @@
 \maketitle
 
 \begin{abstract}
-
+This paper combines Soft Systems Methodology and UML modelling to design a
+high-level view of a search application that receives web content
+from a variety of BBC content production systems and makes every item
+then searchable by a BBC website visitor using the search feature.
 \end{abstract}
 
 \section{The Problem}
@@ -43,7 +46,7 @@ has about its own content.
 
 \subsection{Objectives}
 
-The purpose of this report is to start the high-level design -- and perhaps
+The purpose of this paper is to start the high-level design -- and perhaps
 look at the lower levels of one or two aspects -- of a search application
 specific to BBC content. The intent is to provide a consistent user interface
 that allows the audience to find news articles, sport results,
@@ -72,7 +75,7 @@ for representing a problem situation early in SSM approaches.
 Given the size and complexity of the
 search system as a whole, a useful initial step is to create such an informal
 representation of what is known about the problem. Figure~\ref{rich-picture}
-shows what I know of the audience, search and most BBC online content areas.
+shows what the authors know of the audience, search and most BBC online content areas.
 Note that not all areas are covered and a strong emphasis is placed on TV
 catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
 as it shares a lot of similarity with television in terms of use and any
@@ -505,7 +508,7 @@ SportDiscipline "1" -- "0..n" SportCompetition
 The problem of
 a BBC-wide search application was predicted --
 and has certainly shown itself -- to be a very large-scale problem, the
-full extent of which cannot be covered in this report. Thus it
+full extent of which cannot be covered in this paper. Thus it
 is reasonable to conclude that the problem is not yet solved
 at every level, but the high-level solutions are certainly promising.
 
@@ -612,7 +615,7 @@ the behaviours capture the overall needs of the system. There is still
 much scope for returning to our systems thinking and Soft Systems
 Methodology to monitor the general model for Checkland's ``3 Es''
 (efficacy, efficiency and effectiveness) \citep{checkland1990soft},
-which is only briefly touched on in my attempts to relate the
+which is only briefly touched on in the authors' attempts to relate the
 data model to the user's interaction with the system.
 
 \section{Evaluation}
@@ -636,9 +639,9 @@ in parts of the system to tolerate failure of other components (e.g.
 one component could be modelled to return from an internal cache if
 a collaborator is returning temporary error status codes).
 
-Even the models that are presented in this report do not paint the full
+Even the models that are presented in this paper do not paint the full
 picture, but it could be argued that it is not their purpose to do so.
-As stated at the end of section~\ref{appraisal}, the use case diagram
+As stated at the end of Sect.~\ref{appraisal}, the use case diagram
 provides a starting point that might be sufficient for an early
 iteration of a project in an \emph{Agile} methodology. \citep{beck2001agile}
 
@@ -646,7 +649,7 @@ An Agile approach to developing the search application could distill
 the use cases even further and shape the requirements to the rest
 thereof later in the development process based on feedback and reacting
 to changes. A similar approach would allow us to start with the smaller
-domain model also discussed in section~\ref{appraisal} and allow it to grow
+domain model also discussed in Sect.~\ref{appraisal} and allow it to grow
 to the necessary size to need -- i.e. we can defer the decision of ``how big
 should the domain model be?'' until we are at a point where we have more
 information to answer such a question.
@@ -660,7 +663,7 @@ they modelled directly in the application being built.
 
 The sequence diagrams seemed to provoke more debate of the merits of
 returning rich information in a single response versus an AJAX-driven
-approach (or some trade-off in between). Again, I would emphasise the
+approach (or some trade-off in between). Again, the authors would emphasise the
 communication aspect of UML modelling and argue that encouraging such debate
 is a successful application of UML, not a failure because a decision
 has not been made between two designs at this early stage.
