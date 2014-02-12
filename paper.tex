@@ -15,10 +15,21 @@
 \maketitle
 
 \begin{abstract}
-This paper combines Soft Systems Methodology and UML modelling to design a
-high-level view of a search application that receives web content
-from a variety of BBC content production systems and makes every item
-then searchable by a BBC website visitor using the search feature.
+
+Whilst there are successful general web search engines such a Google that
+will find any piece of content, there is a perceived need for a specific
+search that makes better use of the internal knowledge the broadcasting
+industry (e.g. BBC) has about its own content. The British Broadcasting
+Corporation (BBC) is a public service broadcaster funded by the licence
+fee paid by United Kingdom households. This industry-based case study
+combines Soft Systems Methodology (SSM) and Unified Modelling Language
+(UML) to design a high-level view of a search application that receives
+web content from a variety of BBC content production systems and makes
+every item then searchable by a BBC website visitor using the search
+feature. The developers of such search applications can benefit from this
+specific industry-based case study that contextualised the problem space
+using SSM and developed UML models to solve the problem.
+
 \end{abstract}
 
 \section{The Problem}
@@ -81,7 +92,23 @@ catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
 as it shares a lot of similarity with television in terms of use and any
 differences are out of scope for this design.
 
-The overall design objective will be to create an initial proposal for a
+Dogan and Henshaw\citep{dogan2010conceptual}
+showed how a ‘soft’ systems approach called Interactive
+Management can be adopted to capture the requirements and contextualise the
+problem space. This involved the process of transitioning from the soft systems
+results to a formal model (e.g. UML). This transition was enabled by dividing
+the actors in the rich pictures into meta-level and direct users of the system.
+Although this division was subjective and depended on the interpretation  and
+analysis of the rich pictures to provide a structure for the use case model,
+the rich pictures themselves were created through interactions with subject
+matter experts. The soft systems, and hence the Interactive Management results,
+provided the baseline information to derive a formal model including UML use
+case, sequence and domain models. The transitioning from ``soft'' to ``hard''
+systems can be set within the State of the Art including the requirements
+analysis and modelling as used in SSM, UML and Business Process Modelling.
+
+The overall design objective of this paper will be to create an initial
+proposal for a
 search application to drive the missing components within the holistic
 system depicted in Fig.~\ref{rich-picture}. Some subsystems already
 exist, e.g. for journalists to write news articles and publish them on the
@@ -520,14 +547,14 @@ that different diagrams exploring different combinations of use
 cases should be made to replace the single one given. For instance,
 very little has been touched on around users seeking educational
 and informative material such as GCSE Bitesize or any other
-learning resouces.
+learning resources.
 
 The sequence diagram for the producer (or any other content creator)
-indirectly getting their content into the search system demonsrates
+indirectly getting their content into the search system demonstrates
 the need for asynchronous messaging (and publish-subscribe), but
 the nuances of such a process are not comprehensively shown in
-this format. A better illutration for such a message-based integration
-system might be derived from the illutrated patterns created
+this format. A better illustration for such a message-based integration
+system might be derived from the illustrated patterns created
 by Hohpe and Woolf. \citep{hohpe2004enterprise}
 
 The behaviour of the query web application in Fig.~\ref{sequence-user}
@@ -544,7 +571,7 @@ items and makes no attempt to present any other knowledge about them
 source).
 
 The latter pattern fully decouples the search indexes from any
-deeper information -- leaving that responsbility to appropriate
+deeper information -- leaving that responsibility to appropriate
 source system -- but means that the raw, stub results are near-useless
 to an end user. This makes the AJAX-based alternative approach
 in Fig.~\ref{sequence-ajax}
@@ -556,7 +583,7 @@ would need to happen in terms of what the indexes store as additional
 information.
 
 These decisions relate to how the system would implement the data model
-in Fig.~\ref{model}. The onotology described is an aggregation
+in Fig.~\ref{model}. The ontology described is an aggregation
 of several efforts by Raimond \citep{raimond2009bbc}, Rayfield
 \citep{rayfield2011bbc} and others -- along with some additional work
 to join them together -- to represent the wealth of
@@ -687,10 +714,10 @@ development plan that made unverified assumptions, but an iterative
 approach to modelling that starts at a high-level and updates as
 development progresses could be used successfully in such a project.
 
-\appendix
-\section{Proposal}
-
-\input{proposal-contents}
+A post-analysis study is required to evaluate the SSM and UML models. The models
+need to be applied to further projects for validation and verification purposes.
+In addition, the maturity and evolution of the artefacts need to be considered
+e.g. adding, deleting, or modifying, if the boundary and context changes.
 
 \bibliographystyle{cell}
 \bibliography{bibtex}
