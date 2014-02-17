@@ -1,14 +1,17 @@
-\documentclass[oribibl]{llncs}
+\documentclass{llncs}
 
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{verbatim}
 \usepackage{url}
-\usepackage[square]{natbib}
+%\usepackage[square]{natbib}
 
-\title{Designing a Search for the BBC}
-\author{Ross Fenning\inst{1}}
-\institute{BBC \email{Ross.Fenning@bbc.co.uk}}
+\title{Designing a Search Application for the British Broadcasting Corporation (BBC) Using UML}
+\author{Ross Fenning\inst{1}
+  \and Huseyin Dogan\inst{2}
+  \and Keith Phalp\inst{2}}
+\institute{BBC, UK \email{Ross.Fenning@bbc.co.uk}
+  \and Bournemouth University, UK \email{\{hdogan,kphalp\}@bournemouth.ac.uk}}
 
 \begin{document}
 
@@ -55,7 +58,7 @@ will find any piece of content, there is a perceived need for a
 BBC-specific search that makes better use of the internal knowledge the BBC
 has about its own content.
 
-\subsection{Objectives and Literative Review}
+\subsection{Problem Space Contextualisation through Soft Systems}
 
 The purpose of this paper is to start the high-level design -- and perhaps
 look at the lower levels of one or two aspects -- of a search application
@@ -70,7 +73,7 @@ task to design a search-based discovery mechanism of millions of diverse
 pieces of content aimed at millions of diverse people.
 
 Using \emph{Soft Systems Methodology} (SSM)
-\citep{checkland2006learning}, we can stand back from
+\cite{checkland2006learning}, we can stand back from
 an ontological approach of defining what the search system \emph{is} or
 \emph{comprises} and instead take an \emph{epistemological} view of search
 as a system. With this view, we could consider a system that holistically
@@ -81,7 +84,7 @@ particular programme they missed on television) or those desires are
 \emph{fuzzy} (e.g. news about a certain topic, any comedy programme, learning
 materials about the Industrial Revolution).
 
-Checkland and Scoles \citep{checkland1990soft} decribed a \emph{Rich Picture} approach
+Checkland and Scoles\cite{checkland1990soft} decribed a \emph{Rich Picture} approach
 for representing a problem situation early in SSM approaches.
 Given the size and complexity of the
 search system as a whole, a useful initial step is to create such an informal
@@ -92,7 +95,7 @@ catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
 as it shares a lot of similarity with television in terms of use and any
 differences are out of scope for this design.
 
-Dogan and Henshaw\citep{dogan2010transition}
+Dogan and Henshaw\cite{dogan2010transition}
 showed how a ‘soft’ systems approach called Interactive
 Management can be adopted to capture the requirements and contextualise the
 problem space. This involved the process of transitioning from the soft systems
@@ -116,7 +119,7 @@ BBC News website, but for the purposes of this design exercise, we will
 assume no existing application to drive a search-based discovery of
 those websites.
 
-It is likely that the design will look to integrate with
+The design will look to integrate with
 existing subsystems where possible rather than attempt to replicate
 work already done. For example, journalists will prefer that a search
 application can integrate with the system into which they are publishing
@@ -135,8 +138,8 @@ two systems.
 
 \subsection{Use Cases}
 
-From the rich picture in Fig.~\ref{rich-picture}, we can attempt to
-extract the activities that are clearly within the remit of a search
+From the rich picture in Fig.~\ref{rich-picture}, we
+extracted the activities that are clearly within the remit of a search
 application. For example, the ability for editorial staff to manage
 the content of the search indexes sounds like a feature the search
 application would provide. Conversely, television actors and other
@@ -148,7 +151,7 @@ availability for streaming online.
 This is not to say that we can simply cross off certain elements from
 our depiction of the problem because they do not directly interact
 with the subsystem being designed. The \emph{systems thinking} approach
-advocated by Checkland \citep{checkland1999systems} encourages us to
+advocated by Checkland\cite{checkland1999systems} encourages us to
 consider the irreducible properties of each system at each level
 of abstraction. Thus we need to consider not only a search application
 subsystem that solves specific problems for its immediate users, but
@@ -353,10 +356,10 @@ interacting with the search system
 
 The key design decision in Fig.~\ref{sequence-producer} is the use of
 asynchronous messages only. A non-blocking set of interactions such as
-publish-subscribe \citep{hohpe2004enterprise} is a good way to decouple
+publish-subscribe\cite{hohpe2004enterprise} is a good way to decouple
 systems that produce and store progamme information from the search
 application systems. If the systems surrounding the programmes database
-can be built a \emph{channel adapter} \citep{hohpe2004enterprise} to integrate
+can be built a \emph{channel adapter}\cite{hohpe2004enterprise} to integrate
 it to a messaging system, then the search indexes can receive changes to
 information without TV producers, journalists, content
 editors, etc. even being aware this is happening.
@@ -365,7 +368,7 @@ Note in Fig.~\ref{sequence-user} that while the search indexes
 will contain representations of content
 from several source systems, the intention shown is that richer information
 about the domain model will not be held in the search indexes. This goes
-along with the principle of separation of concerns \citep{dijkstra1982role}
+along with the principle of separation of concerns\cite{dijkstra1982role}
 in that the search index component can focus on optimising its data
 structures around retrieval. This kind of modularity also allows source
 systems maintained by other teams to take the responsibility of the
@@ -374,7 +377,7 @@ of the system: the volume of information involved requires that
 separate teams are responsible for the accuracy of their data.
 
 This can be seen as similar to the \emph{Lazy Load} pattern
-\citep{fowler2002patterns} in that the search indexes will only return
+\cite{fowler2002patterns} in that the search indexes will only return
 stub objects that are capable of retrieving the fuller information
 to need. This, however, could lead to a lot of calls to different
 service applications per page of results. This can be done in parallel, but
@@ -382,7 +385,7 @@ the fact still remains that the user has to wait for all this to
 assemble before seeing even one result.
 
 One solution to this in modern web application design is to
-push the lazy loading into the web browser using AJAX. \citep{garrett2005ajax}
+push the lazy loading into the web browser using AJAX.\cite{garrett2005ajax}
 Such a solution is depicted in Fig.~\ref{sequence-ajax}. Whilst
 this still requires just as many calls to backend services --
 perhaps even more complexity as the calls are going through
@@ -398,34 +401,47 @@ during the user's reaction time in the best case.
 It has been expressed already that a BBC-wide search application
 is going to have to index, retrieve and display a diverse set of
 information. Parts of the application might well want to incorporate
-a domain model \citep{fowler2002patterns} so as to understand how
+a domain model\cite{fowler2002patterns} so as to understand how
 to perform each of these actions against each possible item
-the search application could return as a search result. A maximal
-model is shown in Fig.~\ref{model} that attempts to capture
+the search application could return as a search result.
+
+Domains are the distinct subject matters present in any system
+representing large, reusable components and are depicted using a
+domain model which shows an organisation of UML packages and their
+dependencies.\cite{dickerson2009architecture} The use case diagram and domain model
+developed provides a baseline model for a future search application system.
+
+A maximal
+domain model is shown in Fig.~\ref{model} that attempts to capture
 a good proportion of the content and concepts the BBC has
-been attempting to model over several years. This model is
+been making efforts to model over several years. This model is
 an aggregate of individual ontologies developed for specific purposes,
 but given the search application has to provide the discovery for
 the full set of this information, it is not unreasonable that
 a search application would have a domain model that covers the totality.
 
-Note that complexity of information for programmes alone. \citep{raimond2009bbc}
+Note that complexity of information for programmes alone.\cite{raimond2009bbc}
 A programme to a member of the public could actually refer to an
 exact episode or indeed the \emph{brand}, i.e. the title of the programme
 in general. An example of a brand would be
-\emph{Doctor Who}, which itself contains multiple series, which in turn
+\emph{Doctor Who},
+\footnote{\emph{Doctor Who} is a popular, long-running science-fiction
+television programme produced by the BBC and is frequently sought by users
+of the BBC iPlayer television catch-up service after an episode has aired.
+} which itself contains multiple series, which in turn
 contain a collection of episodes. Note that the brand itself has episodes
 as immediate children that do not live under a series, e.g. Christmas specials.
 It is also the case that certain things do not have brands or series, e.g.
 a film is modelled as a one-off episode.
 
 This leads to some difficult questions for a search application. If a user
-searches for the text ``doctor who'', are they expecting a link to the
+searches for the text ``doctor who'',
+are they expecting a link to the
 latest episode to watch on iPlayer, information about the next episode
 -- such as when it is due to be broadcast -- or a link to the overall
 home page for the entire Doctor Who brand?
 
-The model also skims the surface of the sport ontology \citep{rayfield2011bbc}
+The model also skims the surface of the sport ontology\cite{rayfield2011bbc}
 created before the 2012 Olympic games, which aims to model the whole domain
 of sporting personalities, events and competitions (and more). This might
 be too fine-grained for the domain model used within the search application,
@@ -546,8 +562,11 @@ is likely that the variations of the use cases are so numerous
 that different diagrams exploring different combinations of use
 cases should be made to replace the single one given. For instance,
 very little has been touched on around users seeking educational
-and informative material such as GCSE Bitesize or any other
-learning resources.
+and informative material such as \emph{Bitesize}
+\footnote{\emph{Bitesize} is the name given to the BBC's free web-based
+study materials for school children aged between
+5 and 16, covering varying curricula for England, Wales and Scotland.}
+or any other learning resources.
 
 The sequence diagram for the producer (or any other content creator)
 indirectly getting their content into the search system demonstrates
@@ -555,13 +574,13 @@ the need for asynchronous messaging (and publish-subscribe), but
 the nuances of such a process are not comprehensively shown in
 this format. A better illustration for such a message-based integration
 system might be derived from the illustrated patterns created
-by Hohpe and Woolf. \citep{hohpe2004enterprise}
+by Hohpe and Woolf.\cite{hohpe2004enterprise}
 
 The behaviour of the query web application in Fig.~\ref{sequence-user}
 is defined with a hard line
 taken on keeping the information stored in the indexes to a minimum.
 At a basic level, this is not unlike a \emph{content enricher} pattern
-\citep{hohpe2004enterprise} whereby the search application
+\cite{hohpe2004enterprise} whereby the search application
 business layer enriches the stubs in the indexes with information
 the source system (the index) simply does not have. At a more purist
 extreme, this could follow a \emph{claim check} pattern where
@@ -584,8 +603,8 @@ information.
 
 These decisions relate to how the system would implement the data model
 in Fig.~\ref{model}. The ontology described is an aggregation
-of several efforts by Raimond \citep{raimond2009bbc}, Rayfield
-\citep{rayfield2011bbc} and others -- along with some additional work
+of several efforts by Raimond\cite{raimond2009bbc}, Rayfield
+\cite{rayfield2011bbc} and others -- along with some additional work
 to join them together -- to represent the wealth of
 information with which the BBC deals. It could be argued both that
 a search application that \emph{understands} this diversity of
@@ -598,7 +617,7 @@ Thus the domain model given in Fig.~\ref{model} should only serve
 as a communication artefact that leads to further development of
 a domain model more suitable to the needs of the search application
 without the burden of maintaining more than is necessary. The use
-of \emph{subtype polymorphism} \citep{booch2007object} is likely
+of \emph{subtype polymorphism}\cite{booch2007object} is likely
 to be key to ensure the search domain model contains only the APIs
 it needs. For example, does the search application have a need
 to differentiate between a \emph{NewsItem} and a \emph{BlogPost}
@@ -607,21 +626,21 @@ CreativeWork top-level class has a title property, then the domain
 model so far to enable that one behaviour needs only one class!
 
 The application could go further and interact via a single
-SearchResult \emph{facade} \citep{fowler2002patterns} whose
+SearchResult \emph{facade}\cite{fowler2002patterns} whose
 instances provide appropriate responses to canonical hooks
 such as \emph{getDisplayTitle()} and \emph{getDestinationUrl()}
 via polymorphic \emph{composition} with different target classes
 from the fuller domain model. Given that the search indexes
 are likely to take in content from any number of future systems,
-there is an appeal to taking a schemaless approach \citep{sadalage2012nosql}
+there is an appeal to taking a schemaless approach\cite{sadalage2012nosql}
 and allow the search application's view layer to display
 different kinds of results differently via \emph{duck typing}.
-\citep{python2013ducktyping}
+\cite{python2013ducktyping}
 
 A dynamic, schema-free domain model used within the search application
 -- noting that, of course, schemaless truly means there is an
 implicit schema in the logic that creates these dynamic objects from
-source systems \citep{sadalage2012nosql} -- could prove to aid the
+source systems\cite{sadalage2012nosql} -- could prove to aid the
 search system's need to model different kinds of data in the same
 index. For example, our designers might express a desire to put
 small summaries of weather forecasts within search results that
@@ -637,11 +656,11 @@ set thereon).
 Overall, we have some promising, high-level models from which to
 start making such more fine-grained decisions about the search
 application. The use cases are likely sufficient for early iterations
-or a \emph{Minimal Viable Product} \citep{junk2000dynamic} and
+or a \emph{Minimal Viable Product}\cite{junk2000dynamic} and
 the behaviours capture the overall needs of the system. There is still
 much scope for returning to our systems thinking and Soft Systems
 Methodology to monitor the general model for Checkland's ``3 Es''
-(efficacy, efficiency and effectiveness) \citep{checkland1990soft},
+(efficacy, efficiency and effectiveness)\cite{checkland1990soft},
 which is only briefly touched on in the authors' attempts to relate the
 data model to the user's interaction with the system.
 
@@ -670,7 +689,7 @@ Even the models that are presented in this paper do not paint the full
 picture, but it could be argued that it is not their purpose to do so.
 As stated at the end of Sect.~\ref{appraisal}, the use case diagram
 provides a starting point that might be sufficient for an early
-iteration of a project in an \emph{Agile} methodology. \citep{beck2001agile}
+iteration of a project in an \emph{Agile} methodology.\cite{beck2001agile}
 
 An Agile approach to developing the search application could distill
 the use cases even further and shape the requirements to the rest
@@ -697,13 +716,13 @@ has not been made between two designs at this early stage.
 
 Some of this hints at a drawback of UML modelling being that it encourages
 a lot of design decision at an early stage of a project -- a stage at which we arguably
-have the least information. \citep{kelly2013conway} However, there are plenty of
+have the least information.\cite{kelly2013conway} However, there are plenty of
 efforts in spite of this that promote modelling and UML being used
 compatibly within an Agile process. The use of other modelling techniques
 in an Agile setting such as
 Rational Unified Process (RUP) and Agile Unified Process (AUP) have been
 suggested as suitable in an Agile project.
-\citep{ambler2002agile} It may have been more suitable to incorporate
+\cite{ambler2002agile} It may have been more suitable to incorporate
 a more diverse range of modelling techniques in the design and analysis
 presented so as to find the true strengths of each respective approach.
 
@@ -719,7 +738,7 @@ need to be applied to further projects for validation and verification purposes.
 In addition, the maturity and evolution of the artefacts need to be considered
 e.g. adding, deleting, or modifying, if the boundary and context changes.
 
-\bibliographystyle{cell}
+\bibliographystyle{splncs}
 \bibliography{bibtex}
 
 \end{document}
