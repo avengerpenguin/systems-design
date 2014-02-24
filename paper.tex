@@ -25,8 +25,9 @@ search that makes better use of the internal knowledge the broadcasting
 industry (e.g. BBC) has about its own content. The British Broadcasting
 Corporation (BBC) is a public service broadcaster funded by the licence
 fee paid by United Kingdom households. This industry-based case study
-combines Soft Systems Methodology (SSM) and Unified Modelling Language
-(UML) to design a high-level view of a search application that receives
+looks at the applicability of Soft Systems Methodology (SSM) and
+Unified Modelling Language (UML) to design a hypothetical, high-level
+view of a search application that receives
 web content from a variety of BBC content production systems and makes
 every item then searchable by a BBC website visitor using the search
 feature. The developers of such search applications can benefit from this
@@ -66,6 +67,13 @@ specific to BBC content. The intent is to provide a consistent user interface
 that allows the audience to find news articles, sport results,
 TV catch-up, education resources and everything else the BBC produces.
 
+Whilst the BBC website currently has a
+functional search feature already, this paper assumes building a new search application
+from the ground up so as to give full freedom to apply the analysis and design
+techniques therein. In practice, there are engineering challenges involved
+in maintaining and building on top of existing systems. Such challenges
+are out of scope for this paper.
+
 The target audience for the BBC is effectively the entire population of the UK
 and amongst those that do make use of BBC services, there is much diversity
 of needs, preferences and technical ability. It is clear it is no small
@@ -96,7 +104,7 @@ as it shares a lot of similarity with television in terms of use and any
 differences are out of scope for this design.
 
 Dogan and Henshaw\cite{dogan2010transition}
-showed how a ‘soft’ systems approach called Interactive
+showed how a ``soft'' systems approach called Interactive
 Management can be adopted to capture the requirements and contextualise the
 problem space. This involved the process of transitioning from the soft systems
 results to a formal model (e.g. UML). This transition was enabled by dividing
@@ -346,8 +354,6 @@ deactivate www
   \caption{Sequence diagram showing rich information lazy-loaded via AJAX\label{sequence-ajax}}
 \end{figure}
 
-
-
 Figure~\ref{sequence-producer}
 shows how a TV producer indirectly interacts with search by providing
 information that ultimately ends up in the search indexes and
@@ -399,7 +405,7 @@ during the user's reaction time in the best case.
 \subsection{Domain Model}
 
 It has been expressed already that a BBC-wide search application
-is going to have to index, retrieve and display a diverse set of
+would need to index, retrieve and display a diverse set of
 information. Parts of the application might well want to incorporate
 a domain model\cite{fowler2002patterns} so as to understand how
 to perform each of these actions against each possible item
@@ -557,7 +563,7 @@ at every level, but the high-level solutions are certainly promising.
 
 The use case diagram is likely not complete and would need
 a significant amount of user research and requirements-gathering
-to collection all the possible use cases of the search system. It
+to collect all the possible use cases of the search system. It
 is likely that the variations of the use cases are so numerous
 that different diagrams exploring different combinations of use
 cases should be made to replace the single one given. For instance,
@@ -611,7 +617,8 @@ a search application that \emph{understands} this diversity of
 content must reflect it in its domain model but that a search
 application that is \emph{coupled} to the individual ontologies
 in this way is brittle with regard to changes therein. Duplication
-would only harm maintainability.
+of business models across different applications would only
+harm maintainability.
 
 Thus the domain model given in Fig.~\ref{model} should only serve
 as a communication artefact that leads to further development of
@@ -701,13 +708,13 @@ should the domain model be?'' until we are at a point where we have more
 information to answer such a question.
 
 Thus even if the use case and domain models are not as comprehensive or
-as honed as they need to be to build the entire application, they serve
+as honed as they need to be to build an entire application, they serve
 their purpose adequately to communicate the first iterations of
 development or -- especially in the case of the domain model -- information
 pertaining to the whole organisation, even if only small parts of it are
 they modelled directly in the application being built.
 
-The sequence diagrams seemed to provoke more debate of the merits of
+The sequence diagrams seem to provoke more debate of the merits of
 returning rich information in a single response versus an AJAX-driven
 approach (or some trade-off in between). Again, the authors would emphasise the
 communication aspect of UML modelling and argue that encouraging such debate
@@ -726,7 +733,8 @@ suggested as suitable in an Agile project\cite{ambler2002agile}.
 a more diverse range of modelling techniques in the design and analysis
 presented so as to find the true strengths of each respective approach.
 
-In conclusion, the UML modelling presented is a key part of solving
+In conclusion, the UML modelling presented communicates some promising
+approaches to
 the BBC search problem, but it is far from sufficient in its own right.
 Designing to the level of detail required would result in a rigid
 development plan that made unverified assumptions, but an iterative
