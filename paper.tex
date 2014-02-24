@@ -60,7 +60,7 @@ has about its own content.
 
 \subsection{Problem Space Contextualisation through Soft Systems}
 
-The purpose of this paper is to start the high-level design -- and perhaps
+The purpose of this paper is to start the high-level design -- and
 look at the lower levels of one or two aspects -- of a search application
 specific to BBC content. The intent is to provide a consistent user interface
 that allows the audience to find news articles, sport results,
@@ -385,7 +385,7 @@ the fact still remains that the user has to wait for all this to
 assemble before seeing even one result.
 
 One solution to this in modern web application design is to
-push the lazy loading into the web browser using AJAX.\cite{garrett2005ajax}
+push the lazy loading into the web browser using AJAX\cite{garrett2005ajax}.
 Such a solution is depicted in Fig.~\ref{sequence-ajax}. Whilst
 this still requires just as many calls to backend services --
 perhaps even more complexity as the calls are going through
@@ -408,7 +408,7 @@ the search application could return as a search result.
 Domains are the distinct subject matters present in any system
 representing large, reusable components and are depicted using a
 domain model which shows an organisation of UML packages and their
-dependencies.\cite{dickerson2009architecture} The use case diagram and domain model
+dependencies\cite{dickerson2009architecture}. The use case diagram and domain model
 developed provides a baseline model for a future search application system.
 
 A maximal
@@ -420,7 +420,7 @@ but given the search application has to provide the discovery for
 the full set of this information, it is not unreasonable that
 a search application would have a domain model that covers the totality.
 
-Note that complexity of information for programmes alone.\cite{raimond2009bbc}
+Note that complexity of information for programmes alone\cite{raimond2009bbc}.
 A programme to a member of the public could actually refer to an
 exact episode or indeed the \emph{brand}, i.e. the title of the programme
 in general. An example of a brand would be
@@ -574,7 +574,7 @@ the need for asynchronous messaging (and publish-subscribe), but
 the nuances of such a process are not comprehensively shown in
 this format. A better illustration for such a message-based integration
 system might be derived from the illustrated patterns created
-by Hohpe and Woolf.\cite{hohpe2004enterprise}
+by Hohpe and Woolf\cite{hohpe2004enterprise}.
 
 The behaviour of the query web application in Fig.~\ref{sequence-user}
 is defined with a hard line
@@ -634,8 +634,8 @@ from the fuller domain model. Given that the search indexes
 are likely to take in content from any number of future systems,
 there is an appeal to taking a schemaless approach\cite{sadalage2012nosql}
 and allow the search application's view layer to display
-different kinds of results differently via \emph{duck typing}.
-\cite{python2013ducktyping}
+different kinds of results differently via \emph{duck typing}
+\cite{python2013ducktyping}.
 
 A dynamic, schema-free domain model used within the search application
 -- noting that, of course, schemaless truly means there is an
@@ -689,7 +689,7 @@ Even the models that are presented in this paper do not paint the full
 picture, but it could be argued that it is not their purpose to do so.
 As stated at the end of Sect.~\ref{appraisal}, the use case diagram
 provides a starting point that might be sufficient for an early
-iteration of a project in an \emph{Agile} methodology.\cite{beck2001agile}
+iteration of a project in an \emph{Agile} methodology\cite{beck2001agile}.
 
 An Agile approach to developing the search application could distill
 the use cases even further and shape the requirements to the rest
@@ -716,13 +716,13 @@ has not been made between two designs at this early stage.
 
 Some of this hints at a drawback of UML modelling being that it encourages
 a lot of design decision at an early stage of a project -- a stage at which we arguably
-have the least information.\cite{kelly2013conway} However, there are plenty of
+have the least information\cite{kelly2013conway}. However, there are plenty of
 efforts in spite of this that promote modelling and UML being used
 compatibly within an Agile process. The use of other modelling techniques
 in an Agile setting such as
 Rational Unified Process (RUP) and Agile Unified Process (AUP) have been
-suggested as suitable in an Agile project.
-\cite{ambler2002agile} It may have been more suitable to incorporate
+suggested as suitable in an Agile project\cite{ambler2002agile}.
+ It may have been more suitable to incorporate
 a more diverse range of modelling techniques in the design and analysis
 presented so as to find the true strengths of each respective approach.
 
