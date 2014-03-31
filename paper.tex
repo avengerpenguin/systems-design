@@ -59,13 +59,7 @@ will find any piece of content, there is a perceived need for a
 BBC-specific search that makes better use of the internal knowledge the BBC
 has about its own content.
 
-\subsection{Problem Space Contextualisation through Soft Systems}
-
-The purpose of this paper is to start the high-level design -- and
-look at the lower levels of one or two aspects -- of a search application
-specific to BBC content. The intent is to provide a consistent user interface
-that allows the audience to find news articles, sport results,
-TV catch-up, education resources and everything else the BBC produces.
+\subsection{Design Goals}
 
 Whilst the BBC website currently has a
 functional search feature already, this paper assumes building a new search application
@@ -73,6 +67,25 @@ from the ground up so as to give full freedom to apply the analysis and design
 techniques therein. In practice, there are engineering challenges involved
 in maintaining and building on top of existing systems. Such challenges
 and details of the existing infrastructure are out of scope for this paper.
+
+The purpose of this paper is to explore how contextualisation through SSM
+and then using UML to form a high-level design might benefit building a
+hypothetical, new search application for the BBC.
+The hope is that insights from
+fresh analysis and design might form suitable proposals for potential
+improvements and development within the existing application.
+These approaches might also lead to further work to evaluate the
+current application by highlighting where the BBC Search application
+differs from an ``ideal'' model (if it can be described as such) derived from 
+such a redesign with a contemporary view of the problem space.
+
+Ultimately, any organisation like the BBC is unlikely to replace a large
+application atomically, but is likely to migrate over time to
+its ``ideal'' form with smaller, iterative improvements. It is proposed
+that there is some value in designing what that ``ideal'' form might
+be so as to provide proposals for those improvements.
+
+\subsection{Problem Space Contextualisation through Soft Systems}
 
 The target audience for the BBC is effectively the entire population of the UK
 and amongst those that do make use of BBC services, there is much diversity
@@ -102,6 +115,18 @@ Note that not all areas are covered and a strong emphasis is placed on TV
 catch-up (e.g. via the iPlayer product). Radio catch-up is not mentioned
 as it shares a lot of similarity with television in terms of use and any
 differences are out of scope for this design.
+
+This rich picture was created using domain knowledge dervied from the existing
+search system and technical knowledge of the BBC websites. If the initial
+designs from this paper prove promising in practice, the authors would
+recommend repeating the exercise with a broader range of stakeholders
+and domain experts from respective subsystems. A rich picture does not
+have to serve as authoritative snapshot of the problem space, but can
+instead been seen as a collaborative exercise between stakeholders. Such
+contextualisation is likely worth iterating over time as the industry
+changes, e.g. the recent shift from separate mobile websites to
+\emph{Responsive Design}\cite{marcotte2010responsive} might change
+the understanding around mobile devices.
 
 Dogan and Henshaw\cite{dogan2010transition}
 showed how a ``soft'' systems approach called Interactive
@@ -156,6 +181,31 @@ production subsystem with a producer or content editor being responsible
 for publishing information about the final production's broadcast and
 availability for streaming online.
 
+In other words, we can say
+that editorial staff and content editors might be seen as direct
+users of the system, with actors, presenters, etc. seen as meta-level
+users. This is justified by noting that journalists and editorial staff
+will have their content exactly as typed appear in search results, but
+production staff behind television and radio programming contribute
+only indirectly to the search system. They produce the content that users
+will later wish to see, but they have little contribution to the
+discovery of that content later on.
+
+This follows from the
+Interactive Management approach from Dogan and Henshaw\cite{dogan2010transition}
+and is still largely subjective. For example, if a journalist
+publishes to a content management system, with which a search
+system then integrates without their knowledge, can they still
+be considered to be a direct user of the search system? In this
+design we argue that such syndication into the search system means
+their actions (e.g. to publish, remove, update articles) will
+have direct effect on the search and discovery of those
+articles (e.g. they may become searchable, cease being searchable
+or start being searchable under new criteria) and thus they are
+direct users of the search system. It is recognised however, that
+a more collaborative rich picture drawn up with a wider set
+of stakeholders might lead to a different opinion.
+
 This is not to say that we can simply cross off certain elements from
 our depiction of the problem because they do not directly interact
 with the subsystem being designed. The \emph{systems thinking} approach
@@ -177,14 +227,21 @@ Thus a suitable design strategy is to apply systems design to
 the search application in isolation -- as a \emph{hard problem} --
 but then to use the wider system to inform, shape and evaluate that design.
 
-Having extracted the activities that appear to pertain to the
-search application directly (and the actors involved in those activities),
-we can produce the use case UML diagram shown in Fig.~\ref{use-case}.
+Having extraced the direct users only of the search system, further
+requirements-gathering and business analysis can define their
+respective use cases of the system. An analysis based on domain
+knowledge from the existing search system leads to the
+use case UML diagram shown in Fig.~\ref{use-case}.
 
 This illustrates only a subset of the expected behaviours for a full
 BBC search application, but touches on some of the diversity of the
 potential uses. For the purposes of our initial design, we can next look
-into defining the system behaviour for some of these use cases.
+into defining the system behaviour for some of these use cases. It should
+be noted that these are illustrative of the breadth of use cases, but
+deeper business analysis and creation of corresponding use cases
+(perhaps following the style of Cockburn\cite{cockburn2001writing})
+should be performed as part of a more in-depth study before the
+high-level design can be truly considered complete and valid.
 
 \begin{sidewaysfigure}
   \begin{center}
@@ -354,11 +411,18 @@ deactivate www
   \caption{Sequence diagram showing rich information lazy-loaded via AJAX\label{sequence-ajax}}
 \end{figure}
 
+The breadth of content the search system will need to index and retrieve
+sits across multiple systems within the BBC (e.g. programme metadata
+lives in a distinct location to news articles). The diversity of
+systems, formats and metadata involved suggested approaching the
+more functional design as a classic \emph{Enterprise Integration}
+problem\cite{brosey2001grand}.
+
 Figure~\ref{sequence-producer}
 shows how a TV producer indirectly interacts with search by providing
 information that ultimately ends up in the search indexes and
 Fig.~\ref{sequence-user} shows a sequence diagram defining a user
-interacting with the search system
+interacting with the search system.
 
 The key design decision in Fig.~\ref{sequence-producer} is the use of
 asynchronous messages only. A non-blocking set of interactions such as
