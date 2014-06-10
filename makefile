@@ -37,6 +37,9 @@ pdf: use_case.png plants
 	pdflatex paper.tex
 	pdflatex paper.tex
 
+talk: talk.pdf
+talk.pdf: use_case.png plants
+
 proposal:
 	pdflatex proposal.tex
 

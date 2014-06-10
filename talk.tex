@@ -1,7 +1,7 @@
 \documentclass{beamer}
 
-\usetheme{Pittsburgh}
-\usecolortheme{beaver}
+\usetheme{Frankfurt}
+\usecolortheme{seagull}
 
 \usepackage{dot2texi}
 \usepackage{tikz}
@@ -10,20 +10,20 @@
 \usepackage{graphicx}
 \usepackage{todonotes}
 
+\def\email#1{{\tt#1}}
+
 \mode<handout>{%
   \usepackage{pgfpages}
   \pgfpagesuselayout{resize to}[a4paper]
 }
 
-\title{Building a Web Search}
-\author{Ross Fenning}
-\institute{
-  Senior Software Engineer
-  \\Content Discovery
-  \\Future Media
-  \\BBC
-}
-\date{17 June, 2014}
+\title{Applicability of SSM and UML for Designing a Search Application for the British Broadcasting Corporation (BBC)}
+\author{Ross Fenning\inst{1}
+  \and Huseyin Dogan\inst{2}
+  \and Keith Phalp\inst{2}}
+\institute{BBC, UK \\ \email{Ross.Fenning@bbc.co.uk}
+  \and Bournemouth University, UK \\ \email{\{hdogan,kphalp\}@bournemouth.ac.uk}}
+\date{2014-06-17}
 
 \begin{document}
 
@@ -69,8 +69,8 @@
     \pause \item Start high-level thinking and design of a new search application
     \pause \item Take a ``fresh'' approach as if we are replacing the whole system
     \pause \item A new design can (hopefully) inform iterative improvements on a current system
-    \pause \item Can SSM give us contextualisation that applies both to a new application and to existing systems?
     \pause \item The Search application should integrate where possible with other existing systems
+    \pause \item Can SSM give us contextualisation that applies both to a new application and to existing systems?
     \pause \item Can SSM helps us consider the holistic search system that emerges after this integration?
   \end{itemize}
 \end{frame}
@@ -100,7 +100,7 @@
 \begin{frame}
   \frametitle{Problem Contextualisation through SSM}
   \framesubtitle{Rich Picture}
-  \includegraphics[width=\linewidth]{rich-picture.png}
+  \pause \includegraphics[width=\linewidth]{rich-picture.png}
 \end{frame}
 
 % Extracting use cases
@@ -108,10 +108,10 @@
   \frametitle{Use Case Extraction}
   \framesubtitle{Identifying users}
   \begin{itemize}
-    \pause \item Identifier all users of the system in the rich picture
+    \pause \item Identify all users of the system in the rich picture
     \pause \item Separate \emph{direct} users from \emph{meta-level} users
     \pause \item Direct use cases should emerge from the rich picture
-    \pause \item This separation is still \emph{subjective} and use cases may change as the rich picture changes
+    \pause \item NOTE: This separation is still \emph{subjective} and use cases may change as the rich picture changes
   \end{itemize}
 \end{frame}
 
@@ -141,7 +141,50 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Use Case Extraction}
+  \framesubtitle{UML Use Case Diagram}
+  \pause \includegraphics[width=\linewidth]{use_case.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{System Behaviour}
+  \framesubtitle{Programmes metadata producer}
+  \pause \includegraphics[width=\linewidth]{plant_sequence_producer.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{System Behaviour}
+  \framesubtitle{Website user}
+  \begin{center}
+    \pause \includegraphics[height=0.8\textheight]{plant_sequence_user.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{System Behaviour}
+  \framesubtitle{Lazy-loading page via AJAX}
+  \begin{center}
+    \pause \includegraphics[height=0.8\textheight]{plant_sequence_ajax.png}
+  \end{center}
+\end{frame}
+
 % Domain modelling for search -- model business rules as per benefits shown in background, but also keep it generic
+\begin{frame}
+  \frametitle{Domain Modelling}
+  \begin{itemize}
+    \pause \item Use cases identify types of content users want to search
+    \pause \item Ontology designs exist for specific content domains, e.g. programmes, sport
+    \pause \item A search across all content types needs a model to span all domains
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Domain Modelling}
+  \framesubtitle{Class Diagram}
+  \pause \includegraphics[width=\linewidth]{plant_model.png}
+\end{frame}
+
 % Discussion and Analysis -- Use cases - More SSM needed?
 % Discussion and Analysis -- Domain Model -- Polymorphism
 % Discussion and Analysis -- Domain Model -- Duck Typing
