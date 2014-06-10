@@ -64,18 +64,31 @@
 % Design Goals
 \begin{frame}
   \frametitle{Design Goals}
+  \framesubtitle{Motivation}
   \begin{itemize}
-    \pause \item Existing search application serves a wide variety of use cases
     \pause \item Start high-level thinking and design of a new search application
     \pause \item Take a ``fresh'' approach as if we are replacing the whole system
     \pause \item A new design can (hopefully) inform iterative improvements on a current system
+    \pause \item Existing search application serves a wide variety of use cases
     \pause \item The Search application should integrate where possible with other existing systems
-    \pause \item Can SSM give us contextualisation that applies both to a new application and to existing systems?
+    \pause \item Can SSM give us contextualisation so any modelling and design reflect the real world more appropriately?
     \pause \item Can SSM helps us consider the holistic search system that emerges after this integration?
+    \pause \item Can SSM ensure that the emergement properties of the whole meet the needs of the UK audience and people within the BBC?
   \end{itemize}
 \end{frame}
 
-% Contextualisation of the problems space through SSM
+\begin{frame}
+  \frametitle{Design Goals}
+  \framesubtitle{Requirements}
+  \begin{itemize}
+    \pause \item Existing search application serves a wide variety of use cases
+    \pause \item The Search application should integrate where possible with other existing systems
+    \pause \item Website is very high traffic
+    \pause \item Different parts of the overall website are maintained by distinct teams
+    \pause \item Varying applications, data stores and content management systems
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
   \frametitle{Problem Contextualisation through SSM}
   \begin{itemize}
@@ -182,15 +195,112 @@
 \begin{frame}
   \frametitle{Domain Modelling}
   \framesubtitle{Class Diagram}
-  \pause \includegraphics[width=\linewidth]{plant_model.png}
+  \begin{center}
+    \pause \includegraphics[height=0.8\textheight]{plant_model.png}
+  \end{center}
 \end{frame}
 
 % Discussion and Analysis -- Use cases - More SSM needed?
+
+\begin{frame}
+  \frametitle{Discussion}
+  \framesubtitle{Use Cases}
+  \begin{itemize}
+    \pause \item Use case model seems justifiable at a high level
+    \pause \item Many use cases and variations are missing
+    \pause \item More collaborative and continuous use of SSM should incoporate respective domain experts
+    \pause \item More user testing, audience feedback, requirements-gathering, etc. needed
+    \pause \item Possible need to iterate SSM processes towards a collection of use case models
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Discussion}
+  \framesubtitle{System Behaviour}
+  \begin{itemize}
+    \pause \item Enterprise Integration patterns
+    \begin{itemize}
+      \pause \item Asynchronous messaging
+      \pause \item Content Enricher -- Replicate information from other systems redundantly
+      \pause \item Claim Check -- Store absolute minimum information to function and maintain references to source systems
+      \pause \item Index vs. warehouse?
+      \pause \item How to evaluate the better approach?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 % Discussion and Analysis -- Domain Model -- Polymorphism
+\begin{frame}
+  \frametitle{Discussion}
+  \framesubtitle{Domain Model}
+  \begin{itemize}
+    \pause \item Large, fully-inclusive data model useful mainly as communication artefact
+    \pause \item Aggregate models hard to keep in sync with changes in respective domains
+    \pause \item We can extract a polymorphic supertype containing only properties needed for a search application
+    \pause \item We can go further and model a ``Search Result'' facade
+  \end{itemize}
+\end{frame}
+
 % Discussion and Analysis -- Domain Model -- Duck Typing
+\begin{frame}
+  \frametitle{Discussion}
+  \framesubtitle{Schemalessness and Duck Typing}
+  \begin{itemize}
+    \pause \item Statically typed approach: A \emph{Place} always has a ``today's weather forecast'' attribute
+    \pause \item Dynamically (``duck'') typed approach: any entity can have a ``today's weather forecast'' attribute and we display this forecast if that attribute is present
+    \pause \item Allows other entities in future to have forecasts too (e.g. \emph{Events} such as football matches)
+    \pause \item Search application can store all fields from upstream sources and choose when to start using them
+  \end{itemize}
+\end{frame}
+
 % Discussion -- More SSM: 3 Es?
+\begin{frame}
+  \frametitle{Discussion}
+  \framesubtitle{Overall Model}
+  \begin{itemize}
+    \pause \item Promising at a high level
+    \pause \item Agile methodology would encourage developing prototype or MVP to test assumptions early
+    \pause \item Lacking suitable ``monitoring'' of the system as taught by SSM, e.g. Checkland's ``3 Es'' (efficacy, efficiency, effectiveness)
+  \end{itemize}
+\end{frame}
+
 % Shortcomings -- Performance? NFRs?
+\begin{frame}
+  \frametitle{Evaluation and Difficulties}
+  \framesubtitle{Non-functional Requirements}
+  \begin{itemize}
+    \pause \item BBC is a high-traffic website
+    \pause \item Content such as news articles are published frequently
+    \pause \item How to model requirements around performance, robustness and latency?
+  \end{itemize}
+\end{frame}
+
 % Shortcomings -- Agile?
+\begin{frame}
+  \frametitle{Evaluation and Difficulties}
+  \framesubtitle{Detailed Design and Agile}
+  \begin{itemize}
+    \pause \item Models developed at such a high level lack detailed design (not surprisingly)
+    \pause \item Agile methodologies encourage designing and delivering a small part of the system early
+    \pause \item Detailed design emerges in response to feedback and change
+    \pause \item Hard models can be altered in time with these iterations
+    \pause \item We can defer outstanding questions about hard models until we might have more information
+    \pause \item This seems in line with the continuous feedback cycles within SSM
+  \end{itemize}
+\end{frame}
+
 % Validation?
+
+% Further Work
+\begin{frame}
+  \frametitle{Further Work}
+  \begin{itemize}
+    \pause \item How can the models be effectively validated?
+    \pause \item Can the rich picture and use of SSM be repeated and expanded with input from a wider range of experts?
+    \pause \item How will the models change when this happens?
+    \pause \item Are there more parallels between Agile and SSM that engineers in industry have yet to appreciate?
+    \pause \item Should more development processes be considered alongside SSM and UML? e.g. RUP (OpenUP) or AUP?
+  \end{itemize}
+\end{frame}
 
 \end{document}
