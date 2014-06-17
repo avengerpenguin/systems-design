@@ -39,7 +39,7 @@
     \pause \item BBC Future Media
     \pause \item Content Discovery: Search
     \pause \item BBC Academy and University of Bradford, UK
-    \pause \item Bournemouth University, UK and Lancaster University
+    \pause \item Bournemouth University and Lancaster University
     \pause \item School of Design Engineering \& Computing at Bournemouth University
   \end{itemize}
 \end{frame}
@@ -48,6 +48,21 @@
   \frametitle{What is BBC Search?}
   \framesubtitle{i.e. What do I work on?}
   \includegraphics[width=\linewidth]{homepage.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BBC Search results}
+  \includegraphics[width=\linewidth]{results.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{BBC iPlayer Search results}
+  \includegraphics[width=\linewidth]{iplayer.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CBBC Search results}
+  \includegraphics[width=\linewidth]{cbbc.png}
 \end{frame}
 
 \begin{frame}
@@ -66,13 +81,11 @@
   \frametitle{Design Goals}
   \framesubtitle{Motivation}
   \begin{itemize}
-    \pause \item Start high-level thinking and design of a new search application
+    \pause \item Showcase possible modelling via high-level thinking and design of a new search application
     \pause \item Take a ``fresh'' approach as if we are replacing the whole system
     \pause \item A new design can (hopefully) inform iterative improvements on a current system
-    \pause \item Existing search application serves a wide variety of use cases
-    \pause \item The Search application should integrate where possible with other existing systems
     \pause \item Can SSM give us contextualisation so any modelling and design reflect the real world more appropriately?
-    \pause \item Can SSM helps us consider the holistic search system that emerges after this integration?
+    \pause \item Can SSM help us consider the holistic search system that emerges after this integration?
     \pause \item Can SSM ensure that the emergement properties of the whole meet the needs of the UK audience and people within the BBC?
   \end{itemize}
 \end{frame}
@@ -106,26 +119,38 @@
       \pause \item How is the activity observed by different observers?
       \pause \item How can different observers inform the activity?
     \end{itemize}
-    \pause \item Interactive Management (Dogan and Henshaw, 2010) can capture requirements and transition to formal models
+    \pause \item Dogan and Henshaw (2010) showed a transtion from soft systems to hard models
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame} 
   \frametitle{Problem Contextualisation through SSM}
   \framesubtitle{Rich Picture}
   \pause \includegraphics[width=\linewidth]{rich-picture.png}
 \end{frame}
 
 % Extracting use cases
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Use Case Extraction}
   \framesubtitle{Identifying users}
+  \begin{center}
+    \begin{dot2tex}[dot,scale=0.6]
+      digraph G {
+        rankdir=LR;
+        node;
+        "Rich Picture" -> Users
+        Users -> "Direct Users";
+        Users -> "Indirect Users";
+      }
+      \end{dot2tex}
+    \quad
   \begin{itemize}
     \pause \item Identify all users of the system in the rich picture
     \pause \item Separate \emph{direct} users from \emph{meta-level} users
     \pause \item Direct use cases should emerge from the rich picture
     \pause \item NOTE: This separation is still \emph{subjective} and use cases may change as the rich picture changes
   \end{itemize}
+    \end{center}
 \end{frame}
 
 % Designing behaviour for indirect users
@@ -134,7 +159,7 @@
   \framesubtitle{Meta-level Users}
   \begin{itemize}
     \pause \item Meta-level users do not transition to the use case models directly
-    \pause \item \emph{Systems Thinking} tells us to consider how meta-level users are affected by emergent properties of the holistic system
+    \pause \item We should still consider how meta-level users are affected by emergent properties of the holistic system
   \end{itemize}
 \end{frame}
 
@@ -208,7 +233,7 @@
   \begin{itemize}
     \pause \item Use case model seems justifiable at a high level
     \pause \item Many use cases and variations are missing
-    \pause \item More collaborative and continuous use of SSM should incoporate respective domain experts
+    \pause \item More collaborative and continuous use of SSM should incorporate respective domain experts
     \pause \item More user testing, audience feedback, requirements-gathering, etc. needed
     \pause \item Possible need to iterate SSM processes towards a collection of use case models
   \end{itemize}
@@ -221,8 +246,8 @@
     \pause \item Enterprise Integration patterns
     \begin{itemize}
       \pause \item Asynchronous messaging
-      \pause \item Content Enricher -- Replicate information from other systems redundantly
       \pause \item Claim Check -- Store absolute minimum information to function and maintain references to source systems
+      \pause \item Content Enricher -- Replicate information from other systems redundantly
       \pause \item Index vs. warehouse?
       \pause \item How to evaluate the better approach?
     \end{itemize}

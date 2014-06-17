@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := pdf
 
-LATEX	= pdflatex
+LATEX	= pdflatex -shell-escape
 BIBTEX	= bibtex
 MAKEINDEX = makeindex
 
