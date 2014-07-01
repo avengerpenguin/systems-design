@@ -38,7 +38,7 @@ EMMSAD
 
 The 2-day EMMSAD workshop explores, evaluates and tries to improve modelling
 methods and methodologies themselves. Papers presented included using
-domain constraints to validation domain models and ontologies, analysis of
+domain constraints to validate domain models and ontologies, analysis of
 approaches to non-functional requirements and applying Design Science Research
 to model business strategy.
 
@@ -67,22 +67,23 @@ was my own) and urged researchers to take up positions in companies for 1-2
 years to gain more experience of real world problems and reinforce the
 theory in their research.
 
-The talk also covered the difficulty in bringing new ideas or approaches into
-teams within enterprises due to change aversion. Many teams in industry are
+The talk also covered the difficulties of change aversion when bringing new
+ideas or approaches into
+teams within businesses. Many teams in industry are
 set on the norms and practices to which they have become accustomed and outside
 suggestion of changes to their processes can be met with disinterest or even
 scepticism.
 
 To build on this theme, I feel there is much value in practising software
 engineers looking to incorporate (and perhaps validate) ideas and approaches
-that are well formed and development in the research sphere. The BBC are
+that are well formed and developed in the research sphere. The BBC are
 big proponents of Agile methodologies that advocate regular introspection of
 and improvements to process and practices, so it follows naturally that we
 should welcome small, iterative introduction of new (even if unfamiliar) ideas
 and techniques.
 
 I would hope that my attending such a conference is a step in the direction
-of bringing together the best of the research and enterprise worlds.
+of bringing together the best of research and enterprise worlds.
 Maintaining a presence amongst those in research and contributing our
 practical experiences to the scientific literature can raise the profile of
 BBC Future Media as a world-class
