@@ -37,12 +37,12 @@ EMMSAD
 ------
 
 My exploration of bringing more formal analysis and modelling methods into
-day-to-day development practice was serediputously aligned with the theme of
+day-to-day development practice was serendipitously aligned with the theme of
 the keynote that opened both EMMSAD and BPMDS[^bpmds] workshops.
 
-The opening keynote talk by Gil Regev[^regev] focused on the gap between academia and
-industry in the domain of business process and systems modelling. The presentation
-highlighted that the two larger workshops () featured
+The opening keynote talk by Gil Regev[^regev] focused on the gap between
+academia and industry in the domain of business process and systems modelling.
+The presentation highlighted that both workshops combined
 only four different papers from industry practitioners (one of which
 was my own) and urged researchers to take up positions in companies for 1-2
 years to gain more experience of real world problems and reinforce the
