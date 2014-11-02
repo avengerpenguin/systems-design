@@ -40,6 +40,10 @@ pdf: use_case.png plants
 talk: talk.pdf
 talk.pdf: use_case.png plants
 
+academy: academy-talk.pdf
+academy-talk.pdf: use_case.png plants
+
+
 proposal:
 	pdflatex proposal.tex
 
