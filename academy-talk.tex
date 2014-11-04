@@ -27,6 +27,12 @@
   \and Bournemouth University, UK \\ \email{\{hdogan,kphalp\}@bournemouth.ac.uk}}
 \date{2014-11-05}
 
+%gets rid of bottom navigation bars
+\setbeamertemplate{footline}[frame number]{}
+
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
 \begin{document}
 
 \begin{frame}[plain]
@@ -37,8 +43,8 @@
 \begin{frame}
   \frametitle{About Me}
   \begin{itemize}
-    \pause \item Senior Software Engineer
-    \pause \item Future Media: Content Discovery: Search
+    \item Senior Software Engineer
+    \item Future Media: Content Discovery: Search
   \end{itemize}
 \end{frame}
 
@@ -201,6 +207,8 @@
   \frametitle{Domain Modelling}
   \begin{itemize}
     \item Use cases identify types of content users want to search
+    \item Things we want to model should emerge from the rich picture
+    \item ``TV'' and ``Radio''? Or just ``programmes''?
     \item Ontology designs exist for specific content domains, e.g. programmes, sport
     \item A search across all content types needs a model to span all domains
   \end{itemize}
@@ -208,7 +216,7 @@
 
 \begin{frame}
   \frametitle{Domain Modelling}
-  \framesubtitle{Class Diagram}
+  \framesubtitle{Maximal Class Diagram/Domain Model}
   \begin{center}
     \pause \includegraphics[height=0.8\textheight]{plant_model.png}
   \end{center}
@@ -255,10 +263,13 @@
   \frametitle{Discussion}
   \framesubtitle{Domain Model}
   \begin{itemize}
-    \pause \item Large, fully-inclusive data model useful mainly as communication artefact
-    \pause \item Aggregate models hard to keep in sync with changes in respective domains
-    \pause \item We can extract a polymorphic supertype containing only properties needed for a search application
-    \pause \item We can go further and model a ``Search Result'' facade
+    \item Large, maximal data model useful as communication artefact
+    \item Aggregate models hard to keep in sync with changes in respective domains
+    \item Does Search need to model all of this?
+      \begin{itemize}
+        \item Polymorphic supertype -- ``Thing'' class?
+        \item Facade -- ``SearchResult'' class?
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -267,32 +278,26 @@
   \frametitle{Discussion}
   \framesubtitle{Schemalessness and Duck Typing}
   \begin{itemize}
-    \pause \item Statically typed approach: A \emph{Place} always has a ``today's weather forecast'' attribute
-    \pause \item Dynamically (``duck'') typed approach: any entity can have a ``today's weather forecast'' attribute and we display this forecast if that attribute is present
-    \pause \item Allows other entities in future to have forecasts too (e.g. \emph{Events} such as football matches)
-    \pause \item Search application can store all fields from upstream sources and choose when to start using them
+    \item Statically typed approach: A \emph{Place} always has a ``today's weather forecast'' attribute
+    \item Dynamically (``duck'') typed approach: any entity can have a ``today's weather forecast'' attribute and we display this forecast if that attribute is present
+    \item Allows other entities in future to have forecasts too (e.g. \emph{Events} such as football matches)
+    \item Search application can store all fields from upstream sources and choose when to start using them
   \end{itemize}
 \end{frame}
 
 % Discussion -- More SSM: 3 Es?
 \begin{frame}
   \frametitle{Discussion}
-  \framesubtitle{Overall Model}
+  \framesubtitle{Overall Model: Use cases, behaviour and domain}
   \begin{itemize}
-    \pause \item Promising at a high level
-    \pause \item Agile methodology would encourage developing prototype or MVP to test assumptions early
-    \pause \item Lacking suitable ``monitoring'' of the system as taught by SSM, e.g. Checkland's ``3 Es'' (efficacy, efficiency, effectiveness)
-  \end{itemize}
-\end{frame}
-
-% Shortcomings -- Performance? NFRs?
-\begin{frame}
-  \frametitle{Evaluation and Difficulties}
-  \framesubtitle{Non-functional Requirements}
-  \begin{itemize}
-    \pause \item BBC is a high-traffic website
-    \pause \item Content such as news articles are published frequently
-    \pause \item How to model requirements around performance, robustness and latency?
+    \item Looks good
+    \item Agile? MVP? Test assumptions?
+    \item How do we monitor for ``3 Es''?
+      \pause \begin{itemize}
+        \item Efficacy -- Does the system do what we intended?
+        \item Efficiency -- Does it minimise use of resources?
+        \item Effectiveness -- Does it fit into our long term goals?
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -301,26 +306,36 @@
   \frametitle{Evaluation and Difficulties}
   \framesubtitle{Detailed Design and Agile}
   \begin{itemize}
-    \pause \item Models developed at such a high level lack detailed design (not surprisingly)
-    \pause \item Agile methodologies encourage designing and delivering a small part of the system early
-    \pause \item Detailed design emerges in response to feedback and change
-    \pause \item Hard models can be altered in time with these iterations
-    \pause \item We can defer outstanding questions about hard models until we might have more information
-    \pause \item This seems in line with the continuous feedback cycles within SSM
+    \item High-level design lacks detail (not surprisingly)
+    \item Agile encourages delivering something tangible early
+    \item Shouldn't the full detailed design emerge iteratively?
+    \item Can we iteratively build up and maintain hard models?
+    \item Can we defer pending questions in our hard models until we know more?
+    \item SSM encourages continuous feedback cycles -- does this align with Agile?
+    \item Bustard, Dave, and Frank Keenan. ``Soft Systems Methodology: An Aid to Agile Development?.''
+      In \emph{Information Systems Development}, pp. 25-38. Springer US, 2009.
   \end{itemize}
 \end{frame}
 
-% Validation?
+% Shortcomings -- Performance? NFRs?
+\begin{frame}
+  \frametitle{Evaluation and Difficulties}
+  \framesubtitle{Non-functional Requirements}
+  \begin{itemize}
+    \item Performance
+    \item Availability/uptime
+    \item Latency between publishing and searchability
+    \item Secure/robust
+    \item Maintainability -- the holistic system includes developers!
+  \end{itemize}
+\end{frame}
 
-% Further Work
 \begin{frame}
   \frametitle{Further Work}
   \begin{itemize}
-    \pause \item How can the models be effectively validated?
-    \pause \item Can the rich picture and use of SSM be repeated and expanded with input from a wider range of experts?
-    \pause \item How will the models change when this happens?
-    \pause \item Are there more parallels between Agile and SSM that engineers in industry have yet to appreciate?
-    \pause \item Should more development processes be considered alongside SSM and UML? e.g. RUP (OpenUP) or AUP?
+    \item Can SSM take a more formal place in our processes?
+    \item Are there more parallels between Agile and SSM that engineers in industry have yet to appreciate?
+    \item Can we streamline modelling and design to fit an iterative process?
   \end{itemize}
 \end{frame}
 
