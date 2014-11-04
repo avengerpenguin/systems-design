@@ -9,6 +9,8 @@
 \usepackage{bookmark}
 \usepackage{graphicx}
 \usepackage{todonotes}
+\usepackage{hyperref}
+
 
 \def\email#1{{\tt#1}}
 
@@ -51,12 +53,11 @@
   \frametitle{Design Goals}
   \framesubtitle{Motivation}
   \begin{itemize}
-    \pause \item Showcase possible modelling via high-level thinking and design of a new search application
-    \pause \item Take a ``fresh'' approach as if we are replacing the whole system
-    \pause \item A new design can (hopefully) inform iterative improvements on a current system
-    \pause \item Can SSM give us contextualisation so any modelling and design reflect the real world more appropriately?
-    \pause \item Can SSM help us consider the holistic search system that emerges after this integration?
-    \pause \item Can SSM ensure that the emergement properties of the whole meet the needs of the UK audience and people within the BBC?
+    \item Showcase
+    \item Fresh approach
+    \item Inform improvements?
+    \item Contextualisation via SSM
+    \item Bring audience closer to the design
   \end{itemize}
 \end{frame}
 
@@ -64,40 +65,43 @@
   \frametitle{Design Goals}
   \framesubtitle{Requirements}
   \begin{itemize}
-    \pause \item Existing search application serves a wide variety of use cases
-    \pause \item The Search application should integrate where possible with other existing systems
-    \pause \item Website is very high traffic
-    \pause \item Different parts of the overall website are maintained by distinct teams
-    \pause \item Varying applications, data stores and content management systems
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Problem Contextualisation through SSM}
-  \begin{itemize}
-    \pause \item Claim: ``Hard systems'' (e.g. UML) take an ontological view:
-    \begin{itemize}
-      \pause \item What components are there?
-      \pause \item Who are the actors?
-      \pause \item What are the interactions between actors and components?
-      \pause \item What are the computations or workflows steps/stages?
-    \end{itemize}
-    \pause \item Claim: SSM takes an epistemological view:
-    \begin{itemize}
-      \pause \item How does the holistic search system transform user needs to content and information?
-      \pause \item How can the purposeful activity be monitored?
-      \pause \item How is the activity observed by different observers?
-      \pause \item How can different observers inform the activity?
-    \end{itemize}
-    \pause \item Dogan and Henshaw (2010) showed a transtion from soft systems to hard models
+    \item Existing search application serves a wide variety of use cases
+    \item The Search application should integrate where possible with other existing systems
+    \item Website is very high traffic
+    \item Different parts of the overall website are maintained by distinct teams
+    \item Varying applications, data stores and content management systems
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{What is SSM?}
-  \includegraphics[width=0.5\linewidth]{ssma.jpg}
-  \quad
-  \includegraphics[width=0.5\linewidth]{stsp.jpg}
+  \framesubtitle{Peter Checkland}
+  \begin{center}
+    \includegraphics[height=0.8\textheight]{ssma.jpg}
+    \quad
+    \includegraphics[height=0.8\textheight]{stsp.jpg}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problem Contextualisation through SSM}
+  \begin{itemize}
+    \item Claim: ``Hard systems'' (e.g. UML) take an ontological view:
+    \begin{itemize}
+      \item What components are there?
+      \item Who are the actors?
+      \item What are the interactions between actors and components?
+      \item What are the computations or workflows steps/stages?
+    \end{itemize}
+    \pause \item Claim: SSM takes an epistemological view:
+    \begin{itemize}
+      \item How does the holistic search system transform user needs to content and information?
+      \item How can the purposeful activity be monitored?
+      \item How is the activity observed by different observers?
+      \item How can different observers inform the activity?
+    \end{itemize}
+    \pause \item Dogan and Henshaw (2010) showed a transtion from soft systems to hard models
+  \end{itemize}
 \end{frame}
 
 \begin{frame} 
@@ -119,15 +123,16 @@
         Users -> "Direct Users";
         Users -> "Indirect Users";
       }
-      \end{dot2tex}
+    \end{dot2tex}
     \quad
-  \begin{itemize}
-    \pause \item Identify all users of the system in the rich picture
-    \pause \item Separate \emph{direct} users from \emph{meta-level} users
-    \pause \item Direct use cases should emerge from the rich picture
-    \pause \item NOTE: This separation is still \emph{subjective} and use cases may change as the rich picture changes
-  \end{itemize}
-    \end{center}
+    \begin{itemize}
+    \item Identify all users
+    \item \emph{Direct} vs. \emph{meta-level} users
+    \item Direct use cases should emerge from the rich picture
+    \item Note that separation is \emph{subjective}
+    \item Use cases can change if rich picture changes
+    \end{itemize}
+  \end{center}
 \end{frame}
 
 % Designing behaviour for indirect users
@@ -135,8 +140,15 @@
   \frametitle{Use Case Extraction}
   \framesubtitle{Meta-level Users}
   \begin{itemize}
-    \pause \item Meta-level users do not transition to the use case models directly
-    \pause \item We should still consider how meta-level users are affected by emergent properties of the holistic system
+  \item Meta-level users do not transition to the use case models directly
+  \item We should still consider how meta-level users are affected by emergent properties of the holistic system
+    \begin{itemize}
+    \item Actors
+    \item Journalists
+    \item Parents
+    \item Other Future Media products?
+    \item Future Media staff
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -145,13 +157,13 @@
   \frametitle{Use Case Extraction}
   \framesubtitle{Direct Users}
   \begin{itemize}
-    \pause \item Direct users transition directly to actors into a UML use case diagram
-    \pause \item Use cases should derive from and be justifiable by the rich picture
-    \pause \item Direct users divide up into \emph{content production} and \emph{audience}
-    \pause \item Examples of each:
+    \item Direct users transition directly to actors into a UML use case diagram
+    \item Use cases should derive from and be justifiable by the rich picture
+    \item Direct users divide up into \emph{content production} and \emph{audience}
+    \item Examples of each:
     \begin{itemize}
-      \pause \item Producers of TV programmes metadata
-      \pause \item Users of the search web application
+      \item News editors
+      \item Users of the search web application
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -159,20 +171,20 @@
 \begin{frame}
   \frametitle{Use Case Extraction}
   \framesubtitle{UML Use Case Diagram}
-  \pause \includegraphics[width=\linewidth]{use_case.png}
+  \includegraphics[width=\linewidth]{use_case.png}
 \end{frame}
 
 \begin{frame}
   \frametitle{System Behaviour}
   \framesubtitle{Programmes metadata producer}
-  \pause \includegraphics[width=\linewidth]{plant_sequence_producer.png}
+  \includegraphics[width=\linewidth]{plant_sequence_producer.png}
 \end{frame}
 
 \begin{frame}
   \frametitle{System Behaviour}
   \framesubtitle{Website user}
   \begin{center}
-    \pause \includegraphics[height=0.8\textheight]{plant_sequence_user.png}
+    \includegraphics[height=0.8\textheight]{plant_sequence_user.png}
   \end{center}
 \end{frame}
 
@@ -180,7 +192,7 @@
   \frametitle{System Behaviour}
   \framesubtitle{Lazy-loading page via AJAX}
   \begin{center}
-    \pause \includegraphics[height=0.8\textheight]{plant_sequence_ajax.png}
+    \includegraphics[height=0.8\textheight]{plant_sequence_ajax.png}
   \end{center}
 \end{frame}
 
@@ -188,9 +200,9 @@
 \begin{frame}
   \frametitle{Domain Modelling}
   \begin{itemize}
-    \pause \item Use cases identify types of content users want to search
-    \pause \item Ontology designs exist for specific content domains, e.g. programmes, sport
-    \pause \item A search across all content types needs a model to span all domains
+    \item Use cases identify types of content users want to search
+    \item Ontology designs exist for specific content domains, e.g. programmes, sport
+    \item A search across all content types needs a model to span all domains
   \end{itemize}
 \end{frame}
 
@@ -208,27 +220,34 @@
   \frametitle{Discussion}
   \framesubtitle{Use Cases}
   \begin{itemize}
-    \pause \item Use case model seems justifiable at a high level
-    \pause \item Many use cases and variations are missing
-    \pause \item More collaborative and continuous use of SSM should incorporate respective domain experts
-    \pause \item More user testing, audience feedback, requirements-gathering, etc. needed
-    \pause \item Possible need to iterate SSM processes towards a collection of use case models
+    \item Use case model seems justifiable at a high level
+    \item Many use cases and variations are missing
+    \item More collaborative and continuous use of SSM should incorporate respective domain experts
+    \item More user testing, audience feedback, requirements-gathering, etc. needed
+    \item Possible need to iterate SSM processes towards a collection of use case models
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Discussion}
   \framesubtitle{System Behaviour}
-  \begin{itemize}
-    \pause \item Enterprise Integration patterns
-    \begin{itemize}
-      \pause \item Asynchronous messaging
-      \pause \item Claim Check -- Store absolute minimum information to function and maintain references to source systems
-      \pause \item Content Enricher -- Replicate information from other systems redundantly
-      \pause \item Index vs. warehouse?
-      \pause \item How to evaluate the better approach?
-    \end{itemize}
-  \end{itemize}
+  \begin{columns}[T]
+    
+    \column{0.5\textwidth}
+    
+    \includegraphics[width=\linewidth]{eip.jpg}
+    
+    \column{0.5\textwidth}
+    
+      \begin{itemize}
+      \item Asynchronous messaging
+      \item Claim Check
+      \item Content Enricher
+      \item Index vs. warehouse?
+      \item Objective evaluation?
+      \end{itemize}
+
+  \end{columns}
 \end{frame}
 
 % Discussion and Analysis -- Domain Model -- Polymorphism
@@ -303,6 +322,15 @@
     \pause \item Are there more parallels between Agile and SSM that engineers in industry have yet to appreciate?
     \pause \item Should more development processes be considered alongside SSM and UML? e.g. RUP (OpenUP) or AUP?
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Questions}
+  \begin{center}
+    \url{http://rossfenning.co.uk/pages/papers.html}\\
+    \texttt{Ross.Fenning@bbc.co.uk}\\
+    \texttt{@Avenger\_Penguin}
+  \end{center}
 \end{frame}
 
 \end{document}
