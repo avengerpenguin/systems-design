@@ -45,6 +45,11 @@
   \begin{itemize}
     \item Senior Software Engineer
     \item Future Media: Content Discovery: Search
+    \item Presented at EMMSAD workshop as part of CAiSE 2014
+      \begin{itemize}
+        \item Exploring Modelling Methods for Systems Analysis and Design
+        \item 26th International Conference on Advanced Information Systems Engineering
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -73,15 +78,15 @@
   \begin{itemize}
     \item Existing search application serves a wide variety of use cases
     \item The Search application should integrate where possible with other existing systems
-    \item Website is very high traffic
-    \item Different parts of the overall website are maintained by distinct teams
+    \item BBC website is very high traffic
+    \item Different parts of the BBC website are maintained by distinct teams
     \item Varying applications, data stores and content management systems
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{What is SSM?}
-  \framesubtitle{Peter Checkland}
+  \framesubtitle{Framework for ``messy'' problems}
   \begin{center}
     \includegraphics[height=0.8\textheight]{ssma.jpg}
     \quad
@@ -92,7 +97,7 @@
 \begin{frame}
   \frametitle{Problem Contextualisation through SSM}
   \begin{itemize}
-    \item Claim: ``Hard systems'' (e.g. UML) take an ontological view:
+    \pause \item Claim: ``Hard systems'' (e.g. UML) take an ontological view:
     \begin{itemize}
       \item What components are there?
       \item Who are the actors?
@@ -146,7 +151,7 @@
   \frametitle{Use Case Extraction}
   \framesubtitle{Meta-level Users}
   \begin{itemize}
-  \item Meta-level users do not transition to the use case models directly
+  \item Meta-level users do not transition to use cases directly
   \item We should still consider how meta-level users are affected by emergent properties of the holistic system
     \begin{itemize}
     \item Actors
@@ -163,7 +168,7 @@
   \frametitle{Use Case Extraction}
   \framesubtitle{Direct Users}
   \begin{itemize}
-    \item Direct users transition directly to actors into a UML use case diagram
+    \item Direct users transition directly to actors in a UML use case diagram
     \item Use cases should derive from and be justifiable by the rich picture
     \item Direct users divide up into \emph{content production} and \emph{audience}
     \item Examples of each:
@@ -267,7 +272,7 @@
     \item Aggregate models hard to keep in sync with changes in respective domains
     \item Does Search need to model all of this?
       \begin{itemize}
-        \item Polymorphic supertype -- ``Thing'' class?
+        \item Supertype -- ``Thing'' class?
         \item Facade -- ``SearchResult'' class?
       \end{itemize}
   \end{itemize}
@@ -278,10 +283,12 @@
   \frametitle{Discussion}
   \framesubtitle{Schemalessness and Duck Typing}
   \begin{itemize}
+    \item \url{http://martinfowler.com/articles/schemaless/}
     \item Statically typed approach: A \emph{Place} always has a ``today's weather forecast'' attribute
     \item Dynamically (``duck'') typed approach: any entity can have a ``today's weather forecast'' attribute and we display this forecast if that attribute is present
     \item Allows other entities in future to have forecasts too (e.g. \emph{Events} such as football matches)
     \item Search application can store all fields from upstream sources and choose when to start using them
+    \item Contextual validation enforces ``required'' fields are always populated
   \end{itemize}
 \end{frame}
 
@@ -290,7 +297,7 @@
   \frametitle{Discussion}
   \framesubtitle{Overall Model: Use cases, behaviour and domain}
   \begin{itemize}
-    \item Looks good
+    \item Looks good\ldots at a high level
     \item Agile? MVP? Test assumptions?
     \item How do we monitor for ``3 Es''?
       \pause \begin{itemize}
@@ -304,14 +311,15 @@
 % Shortcomings -- Agile?
 \begin{frame}
   \frametitle{Evaluation and Difficulties}
-  \framesubtitle{Detailed Design and Agile}
+  \framesubtitle{Detailed Design and Agile: Using SSM as part of BBC development practices?}
   \begin{itemize}
     \item High-level design lacks detail (not surprisingly)
     \item Agile encourages delivering something tangible early
     \item Shouldn't the full detailed design emerge iteratively?
     \item Can we iteratively build up and maintain hard models?
-    \item Can we defer pending questions in our hard models until we know more?
-    \item SSM encourages continuous feedback cycles -- does this align with Agile?
+    \item Can we defer questions in our hard models until we know more?
+    \item SSM encourages continuous feedback cycles -- Agile?
+    \item BDD encourages adding business context to features
     \item Bustard, Dave, and Frank Keenan. ``Soft Systems Methodology: An Aid to Agile Development?.''
       In \emph{Information Systems Development}, pp. 25-38. Springer US, 2009.
   \end{itemize}
